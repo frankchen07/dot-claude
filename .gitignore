@@ -1,0 +1,41 @@
+# Runtime / ephemeral
+projects/
+backups/
+cache/
+debug/
+file-history/
+session-env/
+sessions/
+shell-snapshots/
+tasks/
+todos/
+telemetry/
+statsig/
+
+# Logs & history
+history.jsonl
+*.jsonl
+
+# Caches
+mcp-needs-auth-cache.json
+stats-cache.json
+paste-cache/
+plugins/cache/
+plugins/data/
+
+# IDE lock files
+ide/
+
+# Plugin marketplace cache (auto-synced by Claude)
+plugins/marketplaces/
+
+# Local settings (permissions, not secrets, but machine-specific)
+.claude/settings.local.json
+settings.local.json
+
+# read-once runtime artifacts (keep the scripts)
+read-once/session-*.jsonl
+read-once/stats.jsonl
+read-once/read-once
+read-once/read-once.ps1
+read-once/.last-cleanup

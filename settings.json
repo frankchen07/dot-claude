@@ -1,0 +1,35 @@
+{
+  "env": {
+    "MAX_THINKING_TOKENS": "10000",
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
+    "CLAUDE_CODE_SUBAGENT_MODEL": "haiku"
+  },
+  "model": "claude-sonnet-4-6",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/read-once/hook.sh"
+          }
+        ]
+      }
+    ],
+    "PostCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/read-once/compact.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "vercel@claude-plugins-official": true
+  }
+}

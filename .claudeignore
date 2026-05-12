@@ -1,0 +1,62 @@
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+*.cert
+secrets.*
+config/secrets.*
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Dependencies
+node_modules/
+dist/
+build/
+out/
+coverage/
+.next/
+.nuxt/
+.cache/
+
+# Logs & temp
+*.log
+*.lock
+*.pyc
+*.o
+*.class
+*.exe
+*.dll
+*.so
+tmp/
+temp/
+*.tmp
+*.swp
+*.bak
+
+# Generated files
+*.pyc
+*.class
+*.o
+
+# Large files
+*.csv
+*.tsv
+*.parquet
+*.zip
+*.tar.gz
+*.mp4
+*.mp3
+*.png
+*.jpg
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+
+# Git
+.git/
+.gitignore

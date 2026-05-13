@@ -84,11 +84,25 @@
 ## Planning
 - At the end of each plan, give me a list of unresolved questions to answer, if any. Make the questions extremely concise. Sacrifice grammar for the sake of concision.
 
-## Git & Coding Etiquette
-- Use red/green test driven development.
+## CRITICAL RULES
+
+Always follow these rules:
+
+### Security
 - Never publish passwords, API keys, tokens, and secrets.
 - Never hardcode credentials and always use environment variables.
 - Always verify that `.env` is in `.gitignore`.
 - Never commit `.env` to git.
 - Before any commit, verify that passwords, API keys, tokens, and secrets are not included.
-- If something in a file looks like a password, API key, token, or secret, but is not clear, flag it and bring it to my attention before committing or pushing anything.
+- If something in a file looks like a password, API key, token, or secret but is not clear, flag it and bring it to my attention before committing or pushing anything.
+
+### Code Quality
+- Use red/green test driven development.
+- Use the quality-control-enforcer subagent to check your work.
+- Don't silently swallow errors — failed steps should halt and surface, not continue.
+
+### Safe Operations
+- Never delete or overwrite data without explicit confirmation — especially destructive ops like `DROP TABLE`, `rm -rf`, or overwriting files.
+- Always read before you edit — verify file contents before modifying, not just filenames.
+- Prefer reversible actions — when in doubt, copy or backup before transforming.
+- Confirm scope before large refactors — don't rename or restructure across many files without checking first.

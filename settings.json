@@ -32,5 +32,6 @@
   "enabledPlugins": {
     "vercel@claude-plugins-official": true
   },
+  "effortLevel": "high",
   "verbose": true
 }

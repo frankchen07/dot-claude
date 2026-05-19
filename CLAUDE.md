@@ -106,3 +106,4 @@ Always follow these rules:
 - Always read before you edit — verify file contents before modifying, not just filenames.
 - Prefer reversible actions — when in doubt, copy or backup before transforming.
 - Confirm scope before large refactors — don't rename or restructure across many files without checking first.
+- Never git commit or git push without explicit approval from frank, even in permissionless mode

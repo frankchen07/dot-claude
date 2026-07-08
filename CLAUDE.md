@@ -96,14 +96,56 @@ Always follow these rules:
 - Before any commit, verify that passwords, API keys, tokens, and secrets are not included.
 - If something in a file looks like a password, API key, token, or secret but is not clear, flag it and bring it to my attention before committing or pushing anything.
 
-### Code Quality
-- Use red/green test driven development.
-- Use the quality-control-enforcer subagent to check your work.
-- Don't silently swallow errors — failed steps should halt and surface, not continue.
-
 ### Safe Operations
 - Never delete or overwrite data without explicit confirmation — especially destructive ops like `DROP TABLE`, `rm -rf`, or overwriting files.
 - Always read before you edit — verify file contents before modifying, not just filenames.
 - Prefer reversible actions — when in doubt, copy or backup before transforming.
 - Confirm scope before large refactors — don't rename or restructure across many files without checking first.
 - Never git commit or git push without explicit approval from frank, even in permissionless mode
+
+### Coding and Development
+- Use red/green test driven development.
+
+### Fable Skills
+
+Quality-discipline skills mapped to the task lifecycle. Invoke proactively via the Skill tool:
+
+- At the start of any multi-step task → fable-context-thrift
+- When writing or editing code → fable-scope-discipline and fable-native-code
+- Before claiming anything works, is fixed, or passes — and before any state-changing command → fable-prove-it
+- Before ending any turn that used tools or produced a deliverable → fable-finish-your-turn, then fable-outcome-first for the final message
+
+These are judgment skills; they compose with superpowers process skills (verification-before-completion, systematic-debugging) rather than replacing them. Purely conversational replies don't need them.
+
+### Subagent Checkers
+
+External reviewers — use after fable skills, not instead of them.
+
+After implementing a feature or fix:
+- antipattern-auditor — static review: LLM anti-patterns, recycled failed approaches, functionality deleted instead of fixed
+- code-quality-pragmatist — check for over-engineering or unnecessary complexity
+
+Before marking anything done (after fable-prove-it):
+- reality-checker — actually runs the code; confirms it works in reality
+- task-completion-validator — verifies the claim "it's done" holds end-to-end
+
+When spec/requirement alignment is uncertain:
+- implementation-verifier — gap analysis between what was specified and what was built
+
+After significant changes:
+- claudemd-compliance-checker — verify changes follow CLAUDE.md rules
+
+For UI/frontend changes:
+- uiux-tester — browser/mobile validation after implementation is complete
+
+When stuck on a bug after 1-2 attempts:
+- ultrathink-debugger — deep root cause analysis; call early, not as a last resort
+
+### Agents & Skills Together
+
+Example standard sequence for airtight implementation:
+1. fable-context-thrift — start of multi-step task
+2. fable-scope-discipline + fable-native-code — while writing code
+3. antipattern-auditor + code-quality-pragmatist — after code is written
+4. fable-prove-it → reality-checker → task-completion-validator — before claiming done
+5. fable-finish-your-turn + fable-outcome-first — closing the turn

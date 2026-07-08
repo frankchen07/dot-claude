@@ -4,6 +4,9 @@
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
     "CLAUDE_CODE_SUBAGENT_MODEL": "haiku"
   },
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
   "model": "claude-sonnet-4-6",
   "hooks": {
     "PreToolUse": [
@@ -33,5 +36,6 @@
     "vercel@claude-plugins-official": true
   },
   "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
   "verbose": true
 }

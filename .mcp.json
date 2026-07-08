@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "pgedge-postgres": {
+      "command": "/Users/fronk/Documents/github/pgedge-postgres-mcp/bin/pgedge-postgres-mcp",
+      "args": ["--config", "/Users/fronk/Documents/github/pgedge-postgres-mcp/bin/pgedge-postgres-mcp-stdio.yaml"]
+    }
+  }
+}

@@ -112,9 +112,9 @@ Quality-discipline skills mapped to the task lifecycle. Invoke proactively via t
 
 - At the start of any multi-step task → explore-effective-efficiency
 - When writing or editing code → coding-scope-discipline and coding-native-code
-- Before claiming anything works, is fixed, or passes — and before any state-changing command → ending-prove-it
-- Before ending any turn that used tools or produced a deliverable → ending-do-the-work, then comms-outcome-first for the final message
-- Right before ExitPlanMode (end of planning) and right before ending-do-the-work (end of a coding turn) → audit-session-summary, printing a brief list of Skills/Agents used, why, and outcome
+- Before claiming anything works, is fixed, or passes — and before any state-changing command → output-prove-it
+- Before ending any turn that used tools or produced a deliverable → output-do-the-work, then comms-outcome-first for the final message
+- Right before ExitPlanMode (end of planning) and right before output-do-the-work (end of a coding turn) → audit-session-summary, printing a brief list of Skills/Agents used, why, and outcome
 
 These are judgment skills; they compose with superpowers process skills (verification-before-completion, systematic-debugging) rather than replacing them. Purely conversational replies don't need them.
 
@@ -126,7 +126,7 @@ After implementing a feature or fix:
 - codereview-antipatterns — static review: LLM anti-patterns, recycled failed approaches, functionality deleted instead of fixed
 - codereview-overengineering — check for over-engineering or unnecessary complexity
 
-Before marking anything done (after ending-prove-it):
+Before marking anything done (after output-prove-it):
 - verify-e2e-complete — actually runs the code and checks for structural completeness (no stubs, swallowed errors, or missing pieces); confirms "it's done" holds end-to-end
 
 When spec/requirement alignment is uncertain:
@@ -147,5 +147,5 @@ Example standard sequence for airtight implementation:
 1. explore-effective-efficiency — start of multi-step task
 2. coding-scope-discipline + coding-native-code — while writing code
 3. codereview-antipatterns + codereview-overengineering — after code is written
-4. ending-prove-it → verify-e2e-complete — before claiming done
-5. ending-do-the-work + comms-outcome-first — closing the turn
+4. output-prove-it → verify-e2e-complete — before claiming done
+5. output-do-the-work + comms-outcome-first — closing the turn

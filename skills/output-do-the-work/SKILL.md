@@ -1,5 +1,5 @@
 ---
-name: ending-do-the-work
+name: output-do-the-work
 description: Use before ending any turn that used tools or produced a deliverable — when tempted to ask "Want me to…?", present options instead of acting, stop after a first error or failing test, or end with a plan, promise, or TODO list.
 ---
 

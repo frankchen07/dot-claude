@@ -1,5 +1,5 @@
 ---
-name: ending-prove-it
+name: output-prove-it
 description: Use before claiming anything works, is fixed, is done, or passes; before status updates on changes you haven't run; before agreeing with someone else's claim about your work; and before state-changing commands like restarts, deletes, or config edits.
 ---
 

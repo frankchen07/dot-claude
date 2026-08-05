@@ -1,6 +1,6 @@
 ---
 name: audit-session-summary
-description: Use right before ExitPlanMode and right before ending-do-the-work — prints a brief list of which Skills and Agents were used in that phase, why, and the outcome.
+description: Use right before ExitPlanMode and right before output-do-the-work — prints a brief list of which Skills and Agents were used in that phase, why, and the outcome.
 ---
 
 Print a short, scannable status readout of tooling used in the phase that just finished (planning, or coding). Not a report — a status line per item.

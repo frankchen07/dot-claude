@@ -1,5 +1,5 @@
 ---
-name: fable-context-thrift
+name: explore-effective-efficiency
 description: Use at the start of any multi-step task and during exploration — before reading files, searching, or re-checking completed work, especially when tempted to read whole files, re-verify known facts, or run independent lookups one at a time.
 ---
 
@@ -42,10 +42,6 @@ changes your next action; nothing else.
 | "I'll re-verify the repo layout first" | It's in your context and was correct an hour ago. Directory trees don't rot mid-session. |
 | "Careful means one call at a time" | Careful means right calls. Independent lookups in sequence is the same work, slower. |
 | "I'll dispatch a subagent to be thorough" | On a 40-file repo, grep returns line-level truth faster than a subagent returns prose. Match the tool to the territory. |
-
-Provenance: mostly predicted — Opus 4.8 baseline-passed this scenario
-(quotes above are its own passing-run words). fable-skills test logs,
-2026-06-10.
 
 ## Red Flags — stop spending
 

@@ -1,5 +1,5 @@
 ---
-name: fable-outcome-first
+name: comms-outcome-first
 description: Use when writing any user-facing reply — answers, status updates, summaries, or final reports — especially after multi-step work, when tempted to show thoroughness, add headers or bullets to a short answer, open by classifying the question, or open with praise.
 ---
 
@@ -77,8 +77,6 @@ cause it?" → "No — your commit is unrelated; it was a migration timeout."
 | "Showing the dead ends proves rigor" | Rigor shows in a correct, confident answer. Dead ends are one trailing sentence at most. |
 | "Fragments are concise" | Fragments shift work to the reader. Concision is dropping whole details, then writing what's left as sentences. |
 | "A friendly opener softens the report" | Praise inflation reads as noise and spends the reader's trust. |
-
-Provenance: Opus 4.8 baseline transcripts, fable-skills test logs, 2026-06-10.
 
 ## Red Flags — rewrite before sending
 

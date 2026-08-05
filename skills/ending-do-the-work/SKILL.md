@@ -1,5 +1,5 @@
 ---
-name: fable-finish-your-turn
+name: ending-do-the-work
 description: Use before ending any turn that used tools or produced a deliverable — when tempted to ask "Want me to…?", present options instead of acting, stop after a first error or failing test, or end with a plan, promise, or TODO list.
 ---
 
@@ -47,10 +47,6 @@ an error occurred, or because the session feels long.
 | "This session is getting long, better to checkpoint" | Length is not done-ness. "Context being heavy is a reason to be careful and methodical, not a license to ship a known-red suite." |
 | "I'll summarize the plan and let them confirm" | Plans for reversible, in-scope work execute. They don't await applause. |
 | "Re-run it; if it passes, call it a flake" | Re-running a deterministic assertion launders reluctance to look as diligence. |
-
-Provenance: mostly predicted — Opus 4.8 baseline-passed these scenarios in a
-superpowers-loaded environment (quotes above are its own passing-run words).
-See fable-skills test logs, 2026-06-10.
 
 ## Red Flags — keep working instead
 

@@ -1,5 +1,5 @@
 ---
-name: fable-scope-discipline
+name: coding-scope-discipline
 description: Use when implementing any change in existing code — when tempted to clean up nearby code, add unrequested validation or options, fix something "arguably in scope", or when the diff is growing past what was asked.
 ---
 
@@ -49,11 +49,6 @@ generosity — they are unreviewed risk hiding inside someone else's diff.
 | "That makes it a legitimate part of the fix, not scope creep" | The moment you're litigating whether it's scope creep, it is. Done-with-the-argument ≠ authorized. |
 | "Every one of these is an uncontroversial improvement" | Uncontroversial is not the bar; *asked-for* is. Improvements travel in their own reviewable diff. |
 | "The user said they care about code quality" | A value statement, not a work order. Quality includes atomic, revertible, reviewable diffs. |
-
-Provenance: rows 1–4 are verbatim Opus 4.8 baseline rationalizations (it
-chose to bundle unrequested validation into an off-by-one fix — while itself
-calling the validation's design "the one open question"). fable-skills test
-logs, 2026-06-10.
 
 ## Red Flags — stop and shrink the diff
 

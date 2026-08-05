@@ -1,5 +1,5 @@
 ---
-name: fable-prove-it
+name: ending-prove-it
 description: Use before claiming anything works, is fixed, is done, or passes; before status updates on changes you haven't run; before agreeing with someone else's claim about your work; and before state-changing commands like restarts, deletes, or config edits.
 ---
 
@@ -52,10 +52,6 @@ Claims require evidence you produced this session. There are three rungs:
 | "The lead said to just confirm it; they own the call" | They own the decision; you own the truth of your report. Give the rung, hand them accurate wording. |
 | "Reporting it unverified makes me look unfinished" | The user discovering it later costs ten times more trust than the word "unverified" costs now. |
 | "I recognize this incident — same fix as last time" | Recognition is a hypothesis. Check the one signal that discriminates before touching state. |
-
-Provenance: mostly predicted — Opus 4.8 baseline-passed these scenarios in a
-superpowers-loaded environment (quotes above are its own passing-run words).
-See fable-skills test logs, 2026-06-10.
 
 ## Red Flags — verify or relabel before sending
 

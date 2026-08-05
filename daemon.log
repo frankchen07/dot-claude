@@ -1,0 +1,13 @@
+[2026-07-16T22:44:39.747Z] [supervisor] ─── daemon start ─── version=2.1.204 pid=76192 origin=transient
+[2026-07-16T22:44:39.759Z] [supervisor] auth: scheduling proactive refresh in 11723s
+[2026-07-16T22:44:39.760Z] [supervisor] auth: scheduling proactive refresh in 11723s
+[2026-07-16T22:44:39.768Z] [supervisor] workers=0
+[2026-07-16T22:44:39.783Z] [bg] bg: control socket bound at /tmp/cc-daemon-501/34b6b1ab/control.sock
+[2026-07-16T22:44:39.883Z] [bg] bg spare spawned host pid=76199
+[2026-07-16T22:44:39.982Z] [bg] bg claimed-spare 93bd7c6c (spare)
+[2026-07-16T22:44:39.984Z] [bg] bg spawned 983cb0cc (slash)
+[2026-07-16T22:44:39.986Z] [bg] bg spare spawned host pid=76204
+[2026-07-16T22:53:59.844Z] [bg] bg settled 93bd7c6c (killed)
+[2026-07-16T23:54:40.102Z] [bg] bg settled 983cb0cc (done)
+[2026-07-16T23:54:45.104Z] [supervisor] idle 5s with no clients — exiting
+[2026-07-16T23:54:45.105Z] [supervisor] shutting down (cause=idle_exit, uptime=4205s, leases=0, live_workers=0)

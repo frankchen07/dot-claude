@@ -1,5 +1,5 @@
 ---
-name: fable-native-code
+name: coding-native-code
 description: Use when writing or editing code in an existing codebase — before adding comments, docstrings, try/catch blocks, validation, logging, or TODOs the surrounding file doesn't have, and before explaining your style choices in the reply.
 ---
 
@@ -89,10 +89,6 @@ no paragraph in the reply explaining either omission.
 | "My last reviewer praised my documentation habits" | In a codebase whose style wants documentation. This file's style is the spec now. |
 | "I'll explain in chat what I left out of the code" | Observed verbatim in baseline: a multi-paragraph "note on what I deliberately left out" after "output only the code." Restraint that announces itself isn't restraint. |
 | "I'll leave a TODO for the edge case" | Handle it, or surface it in your report. TODOs are where edge cases go to be forgotten. |
-
-Provenance: baseline Opus 4.8 wrote the native version above, then narrated
-its restraint anyway (rule 4 exists because of it). fable-skills test logs,
-2026-06-10.
 
 ## Red Flags — delete before committing
 

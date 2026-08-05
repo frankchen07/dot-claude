@@ -1,6 +1,6 @@
 ---
-name: claudemd-compliance-checker
-description: Use this agent when you need to verify that recent code changes, implementations, or modifications adhere to the project-specific instructions and guidelines defined in CLAUDE.md files. This agent should be invoked after completing tasks, making significant changes, or when you want to ensure your work aligns with project standards. Examples: <example>Context: The user has created a claudemd-compliance-checker agent to ensure recent changes follow CLAUDE.md instructions.\nuser: "I've just implemented a new API endpoint for user authentication"\nassistant: "I've completed the implementation. Now let me use the claudemd-compliance-checker agent to verify it adheres to our CLAUDE.md guidelines"\n<commentary>Since new code was written, use the Task tool to launch the claudemd-compliance-checker agent to review the recent changes against CLAUDE.md instructions.</commentary></example>\n<example>Context: The user wants to check if recent documentation additions follow project guidelines.\nuser: "I added some new documentation files for the API"\nassistant: "Let me use the claudemd-compliance-checker agent to ensure these documentation files align with our CLAUDE.md principles"\n<commentary>Documentation was created, so we should verify it follows the CLAUDE.md instruction to avoid creating documentation unless explicitly requested.</commentary></example>
+name: codereview-claudemd
+description: Use this agent when you need to verify that recent code changes, implementations, or modifications adhere to the project-specific instructions and guidelines defined in CLAUDE.md files. This agent should be invoked after completing tasks, making significant changes, or when you want to ensure your work aligns with project standards. Examples: <example>Context: The user has created a codereview-claudemd agent to ensure recent changes follow CLAUDE.md instructions.\nuser: "I've just implemented a new API endpoint for user authentication"\nassistant: "I've completed the implementation. Now let me use the codereview-claudemd agent to verify it adheres to our CLAUDE.md guidelines"\n<commentary>Since new code was written, use the Task tool to launch the codereview-claudemd agent to review the recent changes against CLAUDE.md instructions.</commentary></example>\n<example>Context: The user wants to check if recent documentation additions follow project guidelines.\nuser: "I added some new documentation files for the API"\nassistant: "Let me use the codereview-claudemd agent to ensure these documentation files align with our CLAUDE.md principles"\n<commentary>Documentation was created, so we should verify it follows the CLAUDE.md instruction to avoid creating documentation unless explicitly requested.</commentary></example>
 color: green
 ---
 
@@ -54,9 +54,9 @@ Output Format:
 - [Any suggestions for better alignment with CLAUDE.md principles]
 
 ### Agent Collaboration Suggestions:
-- Use @task-completion-validator when compliance depends on verifying claimed functionality
-- Use @code-quality-pragmatist when compliance fixes might introduce unnecessary complexity
-- Use @implementation-verifier when CLAUDE.md compliance conflicts with specifications
+- Use @verify-e2e-complete when compliance depends on verifying claimed functionality
+- Use @codereview-overengineering when compliance fixes might introduce unnecessary complexity
+- Use @verify-spec-match when CLAUDE.md compliance conflicts with specifications
 ```
 
 **Cross-Agent Collaboration Protocol:**
@@ -66,7 +66,7 @@ Output Format:
 - **Agent References**: Use @agent-name when recommending consultation with other agents
 
 **Before final approval, consider consulting:**
-- @code-quality-pragmatist: Ensure compliance fixes don't introduce unnecessary complexity
-- @task-completion-validator: Verify that compliant implementations actually work as intended
+- @codereview-overengineering: Ensure compliance fixes don't introduce unnecessary complexity
+- @verify-e2e-complete: Verify that compliant implementations actually work as intended
 
 Remember: You are not reviewing for general code quality or best practices unless they are explicitly mentioned in CLAUDE.md. Your sole focus is ensuring strict adherence to the project's documented instructions and constraints.

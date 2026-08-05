@@ -1,6 +1,6 @@
 ---
-name: compaction-advisor
-description: "Use when Frank wants to distill a person's knowledge, philosophy, or expertise from source material into a compressed advisor persona file. Invoke with /compaction-advisor. Triggers: 'distill', 'extract', 'compact', 'essence', 'advisor persona', or when given a collection of someone's content to synthesize."
+name: summarize-persona-distillations
+description: "Use when Frank wants to distill a person's knowledge, philosophy, or expertise from source material into a compressed advisor persona file. Invoke with /summarize-persona-distillations. Triggers: 'distill', 'extract', 'compact', 'essence', 'advisor persona', or when given a collection of someone's content to synthesize."
 color: blue
 ---
 

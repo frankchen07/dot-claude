@@ -123,30 +123,29 @@ These are judgment skills; they compose with superpowers process skills (verific
 External reviewers — use after task-lifecycle skills, not instead of them.
 
 After implementing a feature or fix:
-- antipattern-auditor — static review: LLM anti-patterns, recycled failed approaches, functionality deleted instead of fixed
-- code-quality-pragmatist — check for over-engineering or unnecessary complexity
+- codereview-antipatterns — static review: LLM anti-patterns, recycled failed approaches, functionality deleted instead of fixed
+- codereview-overengineering — check for over-engineering or unnecessary complexity
 
 Before marking anything done (after ending-prove-it):
-- reality-checker — actually runs the code; confirms it works in reality
-- task-completion-validator — verifies the claim "it's done" holds end-to-end
+- verify-e2e-complete — actually runs the code and checks for structural completeness (no stubs, swallowed errors, or missing pieces); confirms "it's done" holds end-to-end
 
 When spec/requirement alignment is uncertain:
-- implementation-verifier — gap analysis between what was specified and what was built
+- verify-spec-match — gap analysis between what was specified and what was built
 
 After significant changes:
-- claudemd-compliance-checker — verify changes follow CLAUDE.md rules
+- codereview-claudemd — verify changes follow CLAUDE.md rules
 
 For UI/frontend changes:
-- uiux-tester — browser/mobile validation after implementation is complete
+- test-ui — browser/mobile validation after implementation is complete
 
 When stuck on a bug after 1-2 attempts:
-- ultrathink-debugger — deep root cause analysis; call early, not as a last resort
+- debug-root-cause — deep root cause analysis; call early, not as a last resort
 
 ### Agents & Skills Together
 
 Example standard sequence for airtight implementation:
 1. explore-effective-efficiency — start of multi-step task
 2. coding-scope-discipline + coding-native-code — while writing code
-3. antipattern-auditor + code-quality-pragmatist — after code is written
-4. ending-prove-it → reality-checker → task-completion-validator — before claiming done
+3. codereview-antipatterns + codereview-overengineering — after code is written
+4. ending-prove-it → verify-e2e-complete — before claiming done
 5. ending-do-the-work + comms-outcome-first — closing the turn

@@ -1,0 +1,2 @@
+- [ramit-agent message formatting edge case](ramit-agent_message_formatting.md) — LLM excerpt parsing ambiguity with "user:" or "assistant:" in message content
+- [ramit-agent test coverage gap](ramit-agent_test_gap_second_compaction.md) — No test for second+ compactions to verify summarized_through offset tracking

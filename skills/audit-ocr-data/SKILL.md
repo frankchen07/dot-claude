@@ -67,6 +67,25 @@ you can see — treating it as such invents a start time that never
 happened. Compute "first" against the *global* set of possibilities, not
 the *local* set of what's present.)
 
+A known data quirk can also violate an invariant you'd otherwise assume
+holds between two fields — and once you've defended against it in one
+place, every other place that derives a value from the same two fields
+needs the same guard, not just the first one that got caught. (Example:
+this bakery's `unsoldQty` can exceed `bakedQty` when leftovers get logged
+against a 0-baked topup row instead of the batch that actually produced
+them — a real transcription/attribution pattern in the source sheets, not
+a one-off typo. `estimateDemand()` in `demand-calc.ts` already clamps this
+with `Math.max(0, bakedQty - unsoldQty)`. When a later feature — a
+"recommendation composition" visual on the comparison page — recomputed
+`actualBakedQty - actualUnsoldQty` independently for a marker position, it
+skipped the clamp, produced a negative value, and rendered the marker
+outside its own bar. The fix wasn't "handle negative numbers," it was
+"reapply the invariant that was already established defensively
+elsewhere." Before shipping a new derived calculation, grep for whether the
+same raw fields are combined anywhere else in the codebase — if so, check
+whether that existing code carries a guard your new code is silently
+missing.)
+
 ## The false-positive failure mode
 
 This is the failure mode most likely to recur, so it gets named explicitly.
@@ -85,6 +104,13 @@ lands in-range, not less.** Treat plausibility as a gate on acceptance, not
 a post-hoc sanity note.
 
 ## Batching guidance for large audits
+
+In the demand-predictor repo specifically: `scripts/test-ocr.ts` runs a real
+photo through OCR and diffs the result against a seeded ground-truth
+submission (matches/mismatches/missing rows printed per line item). Run it
+before auditing by hand — it's a cheap first pass that surfaces the same
+kind of misreads this skill looks for, without spending manual review time
+on rows the script already confirms match.
 
 For backfills or audits spanning many sheets/records:
 
@@ -117,3 +143,7 @@ For backfills or audits spanning many sheets/records:
 - Running audit batches in parallel against a single shared data file
 - A fresh subagent's audit prompt doesn't itself contain the taxonomy and
   plausibility rule — it's relying on context it doesn't have
+- Writing a new subtraction/derived calculation between two raw fields
+  (e.g. `baked - unsold`) without checking whether that same pair is
+  combined elsewhere in the codebase and, if so, whether that code clamps
+  or guards against a known invariant violation

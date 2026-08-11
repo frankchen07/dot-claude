@@ -11,3 +11,28 @@
 [2026-07-16T23:54:40.102Z] [bg] bg settled 983cb0cc (done)
 [2026-07-16T23:54:45.104Z] [supervisor] idle 5s with no clients — exiting
 [2026-07-16T23:54:45.105Z] [supervisor] shutting down (cause=idle_exit, uptime=4205s, leases=0, live_workers=0)
+[2026-08-06T16:20:09.383Z] [supervisor] ─── daemon start ─── version=2.1.204 pid=71317 origin=transient
+[2026-08-06T16:20:09.394Z] [supervisor] auth: scheduling proactive refresh in 25711s
+[2026-08-06T16:20:09.395Z] [supervisor] auth: scheduling proactive refresh in 25711s
+[2026-08-06T16:20:09.402Z] [supervisor] workers=0
+[2026-08-06T16:20:09.413Z] [bg] bg: control socket bound at /tmp/cc-daemon-501/34b6b1ab/control.sock
+[2026-08-06T16:20:09.501Z] [bg] bg spare spawned host pid=71324
+[2026-08-06T16:20:09.615Z] [bg] bg claimed-spare bdfc2abf (spare)
+[2026-08-06T16:20:09.617Z] [bg] bg spawned e819f650 (slash)
+[2026-08-06T16:20:09.619Z] [bg] bg spare spawned host pid=71329
+[2026-08-06T17:20:09.868Z] [bg] bg settled bdfc2abf (done)
+[2026-08-06T23:34:08.030Z] [supervisor] auth: proactive refresh starting
+[2026-08-06T23:34:09.145Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-06T23:34:09.146Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-07T07:43:57.139Z] [supervisor] auth: proactive refresh starting
+[2026-08-07T07:43:58.249Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-07T07:43:58.249Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-07T15:39:58.093Z] [supervisor] auth: proactive refresh starting
+[2026-08-07T15:39:58.630Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-07T15:39:58.630Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-07T23:35:58.524Z] [supervisor] auth: proactive refresh starting
+[2026-08-07T23:35:59.068Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-07T23:35:59.068Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-07T23:45:50.393Z] [bg] bg settled e819f650 (done)
+[2026-08-07T23:45:55.396Z] [supervisor] idle 5s with no clients — exiting
+[2026-08-07T23:45:55.397Z] [supervisor] shutting down (cause=idle_exit, uptime=113146s, leases=0, live_workers=0)

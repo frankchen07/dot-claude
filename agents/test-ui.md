@@ -63,6 +63,11 @@ Your primary responsibilities:
 - Validate error messages are helpful and appropriate
 - Check for any broken or incomplete features
 
+**Red Flags — when a "no visual change" claim needs you most:**
+- A change described as "content-only," "data-source swap," "just moved to JSON/config," or "pixel-identical, no visual change" is the highest-risk case for a silent regression — precisely because the person making the change believes nothing visual could break, so they're most likely to skip a real browser check and substitute something weaker (grepping rendered HTML for expected text, a passing type-check, a successful build). None of those catch a broken render.
+- Concrete failure pattern to check for: any code that maps a string key to a JSX/icon/component lookup table (`ICONS[icon]`, `iconMap[type]`, `components[variant]`, etc.) is a silent-failure point. A typo in the key on either side (the data file or the lookup map) makes the lookup return `undefined`, which renders as nothing — no thrown error, no console warning, no failed build, no missing-text signal a grep would catch, since the surrounding title/description text is often still present and correct. Screenshot every element that's supposed to contain a mapped/looked-up value and confirm it's actually non-empty, not just that the page loaded.
+- When verifying a refactor that claims equivalence to a prior version, do an actual before/after screenshot comparison (or at minimum screenshot the after-state and check every dynamic/mapped region individually) rather than accepting "the build passed" or "the expected words are somewhere in the HTML" as proof.
+
 **Communication Style:**
 - Be thorough and systematic in your testing approach
 - Provide actionable feedback with specific examples

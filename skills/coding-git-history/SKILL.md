@@ -71,6 +71,36 @@ commit.
    repo (or you, on another machine) has zero protection and can
    re-commit the exact same file with no warning.
 
+## Related gotcha: `.gitignore` negation patterns invert intent
+
+`!pattern` *un-ignores* a path — the opposite of adding an ignore rule. Easy
+to get backwards when copying the style of an existing negation line for a
+different purpose: a project `.gitignore` had `!public/*.jpg` etc. to
+force-track real site images despite a broader ignore, and a later edit
+added `!public/*.mp4` / `!public/*.mov` intending to *ignore* those video
+types in `public/` — which did the opposite (kept them trackable). After
+editing `.gitignore`, don't trust the pattern by inspection — confirm with
+`git check-ignore -v <path>` or `git status` that the file is actually
+classified the way you intended.
+
+## Related: a gitignored file that's genuinely needed at runtime
+
+Not every gitignored match should stay excluded forever. A personal
+`~/.gitignore_global` (`core.excludesFile`) that blanket-excludes a file
+type (e.g. all video files) will also catch an asset a specific page
+actually ships — a background video referenced from `public/`, for
+instance. That app code can be completely correct and the asset will still
+never reach a git-based deploy (Vercel, etc.), because gitignored files
+never leave the local machine regardless of what the code references.
+Two different fixes depending on scope:
+- **Permanent site asset**: add a narrow project-local `.gitignore`
+  override (`!public/exact-file.mp4`) — not a blanket unignore of the whole
+  type, which would silently let any future large file of that type back in.
+- **One-off exception**: `git add -f <path>` tracks that single file without
+  touching any ignore rule — more surgical when it's one deliberate asset
+  rather than a category you want tracked going forward. Confirm after with
+  `git status --short` that only the intended file got staged.
+
 ## When it's not the right tool
 
 If the large file genuinely needs to stay version-controlled (not a
@@ -85,6 +115,7 @@ reflexively strip something that should have been LFS-tracked instead.
 | "I'll just delete it in a new commit" | That only stops future tracking. The file is still fully present and downloadable from every commit before that one. |
 | "filter-repo finished with no errors, so I'm done" | Check whether it altered the working tree, not just history — confirm no needed local-only files vanished before moving on. |
 | "They already said 'help me clean this up,' so I can force-push" | That authorized the cleanup. Force-pushing over shared/remote history is a separate, irreversible action — confirm it explicitly. |
+| "I added an ignore-looking line, so it's ignored now" | `!pattern` un-ignores. Verify with `git check-ignore -v <path>`, don't trust it from reading the pattern. |
 
 ## Red Flags
 

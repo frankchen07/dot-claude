@@ -40,14 +40,35 @@ miss because it doesn't look sensitive at a glance.
    tree; a secret added and later "deleted" is still in every commit before
    the delete.
 
-3. **Decide per finding**: delete / anonymize-and-keep / exclude-going-forward.
+3. **Check every path a sensitive file was ever renamed from — not just its
+   current path.** `git filter-repo --path <path> --invert-paths` matches
+   the *exact string* given; it has no idea a file used to live somewhere
+   else. A rename (`skills/dealmaker` → `skills/comms-dealmaking`,
+   `agent-memory/quality-control-enforcer` → `agent-memory/codereview-antipatterns`)
+   leaves the old path's commits completely untouched by a purge scoped to
+   the new path — the PII is still fully reachable in history, just under a
+   name nobody thought to check. Build the full list of paths that ever
+   existed and diff it against what's currently tracked, then sweep every
+   path only in the "ever existed" side for the same sensitive patterns:
+   ```bash
+   git log --all --name-only --pretty=format: | sort -u | grep -v '^$' > /tmp/all_paths_ever.txt
+   git ls-files | sort > /tmp/current_paths.txt
+   comm -23 /tmp/all_paths_ever.txt /tmp/current_paths.txt   # renamed-away or deleted paths
+   ```
+   Then grep each of those paths' full history (`git log --all -p -- <path>`,
+   added lines only) for the same PII/secret patterns used elsewhere in this
+   process. Do this even after a purge you're confident in — it's exactly
+   the kind of gap that survives a first pass because the current tree looks
+   clean.
+
+4. **Decide per finding**: delete / anonymize-and-keep / exclude-going-forward.
    Heuristic for directories: if a large fraction of what you actually
    reviewed turned out sensitive, don't hand-curate a keep-list — exclude
    the whole directory. Cherry-picking "safe" files out of a mostly-sensitive
    directory is more error-prone than just drawing the line at the directory
    level, and the safe ones usually weren't the point of publishing anyway.
 
-4. **Anonymize-and-keep has one nuance `coding-git-history` doesn't cover**:
+5. **Anonymize-and-keep has one nuance `coding-git-history` doesn't cover**:
    if a file needs to stay at its current path but its *old* content
    (name, email, comp figures, whatever) must not be reachable in history,
    the path has to be purged from all history first — then the sanitized
@@ -56,26 +77,34 @@ miss because it doesn't look sensitive at a glance.
    `filter-repo --path <path> --invert-paths` removes the path — old *and*
    new content — from everything, tip included.
 
-5. **Any live-looking credential gets rotated**, independent of the git
+6. **Any live-looking credential gets rotated**, independent of the git
    work. Check whether it's actually consumed by something (grep the repo
    and any related running processes for the filename/value) before
    assuming manual rotation is required — some tokens are daemon-managed
    ephemeral state that regenerates on its own once the stale file is gone.
 
-6. **Purge via `coding-git-history`.** Follow that skill's process exactly:
+7. **Purge via `coding-git-history`.** Follow that skill's process exactly:
    blast-radius check, backup tag, `git filter-repo --path ... --invert-paths
    --force`, re-add `origin`, `--force-with-lease`, explicit confirmation
-   before the actual push.
+   before the actual push. Pass every path found in step 3 alongside the
+   current ones in the same `filter-repo` invocation — don't split them
+   into separate runs unless you have to; `filter-repo` warns about
+   "continuation" runs against an already-rewritten repo and needs an
+   explicit yes to proceed sanely.
 
-7. **Verify against a fresh clone, not local state.** Local checks after a
+8. **Verify against a fresh clone, not local state.** Local checks after a
    force-push can't see what the server actually has. Clone the remote fresh
    into a throwaway directory and re-run the grep / `git log --all -- <path>`
-   checks there.
+   checks there — including the step-3 renamed-path sweep again, on the
+   fresh clone, not just the paths you already fixed.
 
-8. **Install the prevention hook going forward** — `pre-push-secret-scan.sh`
+9. **Install the prevention hook going forward** — `pre-push-secret-scan.sh`
    in this skill's directory. Copy it to `.git/hooks/pre-push` in the target
    repo (`chmod +x`) so future pushes — from Claude Code, a terminal, or an
-   IDE — get scanned automatically, not just this one cleanup pass.
+   IDE — get scanned automatically, not just this one cleanup pass. Expect
+   occasional false positives on legitimate env-var-based connection strings
+   (`postgres://$USER:$PASSWORD@host`) — verify by reading the actual match
+   before reaching for `--no-verify`, don't reach for it reflexively.
 
 ## What tends to sneak in (recurring checklist — re-run periodically, not just once)
 
@@ -122,6 +151,7 @@ miss because it doesn't look sensitive at a glance.
 | "It's just a hex string, probably not important" | Assume anything token-shaped is live until you've confirmed otherwise. Rotate/neutralize regardless of what git status says about it. |
 | "It pushed with no errors, must be clean" | Verify against a fresh clone of the remote, not local state — local checks can't see what the server actually has. |
 | "I already anonymized the file, ready to commit" | Check whether the *old* content is still reachable in history before calling it done — editing a tracked file doesn't remove its prior committed versions. |
+| "I purged the file at its current path, so it's out of history" | Only if it was never renamed. Diff every-path-ever-tracked against current tracked paths and check the difference — a rename hides old commits from a path-scoped purge completely. |
 
 ## Red Flags
 
@@ -136,6 +166,8 @@ miss because it doesn't look sensitive at a glance.
   for going public"
 - Skipping the pre-push hook install because "this one push is fine" — the
   whole point is catching the *next* one, not this one
+- A purged file's skill/agent/directory has ever been renamed and the old
+  path wasn't independently checked
 
 ## See also
 

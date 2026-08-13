@@ -126,3 +126,12 @@ reflexively strip something that should have been LFS-tracked instead.
 - A file that only existed in git history is also the only copy that
   existed anywhere — rewriting will delete it for real
 - Relying on a personal/global gitignore to protect a shared repo
+
+## See also
+
+- `coding-git-priv-pub` — if the reason you're here is "make this repo
+  public/open-source it" rather than a single known secret/binary, use that
+  skill first. It covers *what* needs purging (secrets, PII, business/
+  personal-sensitive content, including files that were renamed at some
+  point — a path-scoped purge here misses their pre-rename history
+  entirely) and hands off to this skill for the actual mechanics.

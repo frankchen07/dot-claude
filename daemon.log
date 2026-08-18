@@ -36,3 +36,49 @@
 [2026-08-07T23:45:50.393Z] [bg] bg settled e819f650 (done)
 [2026-08-07T23:45:55.396Z] [supervisor] idle 5s with no clients — exiting
 [2026-08-07T23:45:55.397Z] [supervisor] shutting down (cause=idle_exit, uptime=113146s, leases=0, live_workers=0)
+[2026-08-14T02:01:15.402Z] [supervisor] ─── daemon start ─── version=2.1.204 pid=12095 origin=transient
+[2026-08-14T02:01:15.412Z] [supervisor] auth: scheduling proactive refresh in 16126s
+[2026-08-14T02:01:15.413Z] [supervisor] auth: scheduling proactive refresh in 16126s
+[2026-08-14T02:01:15.421Z] [supervisor] workers=0
+[2026-08-14T02:01:15.430Z] [bg] bg: control socket bound at /tmp/cc-daemon-501/34b6b1ab/control.sock
+[2026-08-14T02:01:15.454Z] [bg] bg spare spawned host pid=12102
+[2026-08-14T02:01:15.634Z] [bg] bg claimed-spare e800640c (slash)
+[2026-08-14T02:01:15.635Z] [bg] bg spawned d1b23f84 (spare)
+[2026-08-14T02:01:15.638Z] [bg] bg spare spawned host pid=12112
+[2026-08-14T03:01:15.880Z] [bg] bg settled d1b23f84 (done)
+[2026-08-14T06:39:39.769Z] [supervisor] auth: proactive refresh starting
+[2026-08-14T06:39:40.659Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-14T06:39:40.660Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-14T14:46:58.789Z] [supervisor] auth: proactive refresh starting
+[2026-08-14T14:46:59.912Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-14T14:46:59.912Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-14T22:42:59.793Z] [supervisor] auth: proactive refresh starting
+[2026-08-14T22:43:00.397Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-14T22:43:00.397Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-15T06:39:00.320Z] [supervisor] auth: proactive refresh starting
+[2026-08-15T06:39:00.993Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-15T06:39:00.993Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-15T14:40:37.845Z] [supervisor] auth: proactive refresh starting
+[2026-08-15T14:40:38.805Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-15T14:40:38.805Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-15T22:42:33.825Z] [supervisor] auth: proactive refresh starting
+[2026-08-15T22:42:34.953Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-15T22:42:34.954Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-16T06:38:34.848Z] [supervisor] auth: proactive refresh starting
+[2026-08-16T06:38:35.440Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-16T06:38:35.440Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-16T14:40:09.889Z] [supervisor] auth: proactive refresh starting
+[2026-08-16T14:40:10.785Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-16T14:40:10.785Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-16T22:46:55.908Z] [supervisor] auth: proactive refresh starting
+[2026-08-16T22:46:56.919Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-16T22:46:56.919Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-17T06:59:09.987Z] [supervisor] auth: proactive refresh starting
+[2026-08-17T06:59:11.070Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-17T06:59:11.070Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-17T14:56:59.376Z] [supervisor] auth: proactive refresh starting
+[2026-08-17T14:57:00.698Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-17T14:57:00.698Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-17T22:59:55.061Z] [supervisor] auth: proactive refresh starting
+[2026-08-17T22:59:56.060Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-17T22:59:56.060Z] [supervisor] auth: proactive refresh succeeded

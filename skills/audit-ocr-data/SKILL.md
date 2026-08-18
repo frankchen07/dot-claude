@@ -46,6 +46,7 @@ score.
 | Column swap | Two columns' values were transposed |
 | Genuinely ambiguous handwriting | Can't be resolved even with cross-referencing — flag and note, don't force a guess |
 | Context-blind reinterpretation | A literal, isolated reading that ignores corroborating context and produces a confidently-wrong outlier |
+| Underspecified extraction | The value itself was read correctly, but a required qualifier (unit, category, sign) is missing from the source and had to be guessed — confidence should reflect the *whole* structured value, not just digit legibility |
 
 ## Designing derived metrics defensively
 
@@ -85,6 +86,16 @@ elsewhere." Before shipping a new derived calculation, grep for whether the
 same raw fields are combined anywhere else in the codebase — if so, check
 whether that existing code carries a guard your new code is silently
 missing.)
+
+**Returning null is only half the fix — that null still has to be surfaced somewhere a human will see it.** "Didn't crash" and "didn't disappear" are different bars. A filter/list-building function that silently `continue`s past every unparseable value produces a result that looks complete but isn't — the omission is indistinguishable from "everything's fine." (Example: `inventory-tracker`'s restock list flagged items below a reorder threshold, computed from a free-text quantity parsed against a unit-conversion table. When OCR read a bare number with no unit (see "Designing extraction prompts defensively" below), the parser correctly returned null — but the list-building code's response to null was `continue`, so the item just vanished from the restock list instead of appearing anywhere. One of the vanished items was already below threshold. The fix was a second bucket — `needsReview`, alongside the low-stock list — so a null lands somewhere visible instead of nowhere. Any time a derived-value function returns null/unknown for "couldn't compute," check what its caller does with that null: if the caller's response is to drop the row from a rendered list, that's the same bug wearing a defensive-looking wrapper.)
+
+## Designing extraction prompts defensively
+
+When the "OCR" step is an LLM extracting structured fields (not just digits) — e.g. a quantity *and* a unit — a bare digit-recognition confidence score doesn't capture every failure mode. A model can be fully confident it read "6" correctly while the unit next to it was never written at all; that's not a low-confidence digit read, it's a missing field the model quietly filled in from context (or didn't fill in at all).
+
+**Rule: instruct the extraction prompt to treat "value present, required qualifier missing or inferred" as its own explicit trigger for the ambiguous flag — don't rely on the model to fold that into its confidence number on its own.** A high-confidence read of an incomplete value is still an incomplete value.
+
+Concretely: an inventory OCR pipeline (`inventory-tracker`) extracted quantities like `"6"` and `"12"` with no unit written on the source sheet at all. The model gave these confidence 80-85 (it was genuinely sure the digit was "6") and left `ambiguous: false`, even though its own notes admitted "no unit given." Downstream, these values were unusable (nothing to convert them by) but nothing flagged them for human review. Fix: the system prompt now explicitly says to set `ambiguous: true` whenever a value is missing a required qualifier, independent of digit confidence.
 
 ## The false-positive failure mode
 

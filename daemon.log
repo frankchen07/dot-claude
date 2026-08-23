@@ -82,3 +82,18 @@
 [2026-08-17T22:59:55.061Z] [supervisor] auth: proactive refresh starting
 [2026-08-17T22:59:56.060Z] [supervisor] auth: scheduling proactive refresh in 28560s
 [2026-08-17T22:59:56.060Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-18T06:58:09.110Z] [supervisor] auth: proactive refresh starting
+[2026-08-18T06:58:10.088Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-18T06:58:10.088Z] [supervisor] auth: proactive refresh succeeded
+[2026-08-18T14:55:42.155Z] [supervisor] auth: proactive refresh starting
+[2026-08-18T14:55:42.464Z] [supervisor] auth: proactive refresh failed, retrying in ~60s (token still valid)
+[2026-08-18T14:55:42.464Z] [supervisor] auth: scheduling proactive refresh in 60s
+[2026-08-18T15:12:42.156Z] [supervisor] auth: proactive refresh starting
+[2026-08-18T15:12:42.462Z] [supervisor] auth: proactive refresh failed, signalling re-auth required
+[2026-08-18T15:12:42.466Z] [supervisor] auth: headless daemon cannot complete OAuth — run `claude auth login` to refresh
+[2026-08-18T15:12:42.466Z] [supervisor] auth: no token found, will re-check keychain every 30s
+[2026-08-18T18:43:40.264Z] [supervisor] auth: scheduling proactive refresh in 28560s
+[2026-08-18T18:43:40.264Z] [supervisor] auth: token refreshed via keychain re-check retry
+[2026-08-18T23:02:40.102Z] [supervisor] binary at /opt/homebrew/Caskroom/claude-code@latest/2.1.204/claude was deleted (was /opt/homebrew/Caskroom/claude-code@latest/2.1.204/claude) — exiting for upgrade
+[2026-08-18T23:02:40.103Z] [supervisor] shutting down (cause=upgrade, uptime=421285s, leases=2, live_workers=1)
+[2026-08-18T23:02:40.123Z] [supervisor] upgrade self-respawn failed to spawn: ENOENT: no such file or directory, posix_spawn '/opt/homebrew/Caskroom/claude-code@latest/2.1.204/claude' — bg workers may be orphan-reaped ~60s after this process exits unless a client restarts the daemon (run `claude agents`)

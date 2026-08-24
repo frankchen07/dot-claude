@@ -10,6 +10,16 @@
         "lastUpdated": "2026-07-25T22:55:05.304Z",
         "gitCommitSha": "b4803caa71cf3277f1178f35f7189f9b8d20f6bb"
       }
+    ],
+    "skill-creator@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/skill-creator/cc0e1c57daa6",
+        "version": "cc0e1c57daa6",
+        "installedAt": "2026-08-24T21:10:47.945Z",
+        "lastUpdated": "2026-08-24T21:10:47.945Z",
+        "gitCommitSha": "cc0e1c57daa6296a7bab1eae067ba604604cf8b7"
+      }
     ]
   }
 }

@@ -102,7 +102,8 @@ Subagents invoked via the `Agent` tool — each runs with its own context window
 
 **Personal automation (templates)**
 - **`automate-youtube-content`** — Template for a recurring video-processing/publishing pipeline: scan a drop folder, propose a canonical rename plan, compress via a fixed `ffmpeg` command, split into platform-ready and archive copies, and apply a location/schedule-based rule for a secondary "teaching" copy. Shipped with placeholder paths/channel/schedule in place of the original personal workflow it was built from.
-- **`summarize-persona-distillations`** — Distills a person's knowledge, philosophy, or expertise from a collection of source material into a compressed advisor-persona file (frameworks, vocabulary, blind spots, contradictions, signature advice patterns). Has a dedicated "Dealmaker Mode" that additionally extracts a negotiation profile, deal architecture, and practice drills when the source material is negotiation-related.
+- **`summarize-content-persona`** — Distills a person's knowledge, philosophy, or expertise from a collection of source material into a compressed advisor-persona file (frameworks, vocabulary, blind spots, contradictions, signature advice patterns).
+- **`summarize-content-skill`** — Converts a body of source material (several books, a course, articles, notes) into a draft Claude Skill directory (`SKILL.md` + optional `references/`/`scripts/`), rewriting the source's frameworks and principles as imperative procedure rather than a knowledge summary. Hands off to the official `skill-creator` plugin (or manual dogfooding) for testing and description tuning.
 
 ---
 

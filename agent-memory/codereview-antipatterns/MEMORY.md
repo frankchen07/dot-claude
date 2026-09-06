@@ -1,2 +1,4 @@
 - [inventory-app-sheets-atomicity](inventory-app-sheets-atomicity.md) — Sheets persistence lacks atomic multi-row updates; partial failures corrupt state
 - [inventory-app-ocr-validation](inventory-app-ocr-validation.md) — OCR output filtering & prompt schema consistency gaps
+- [posnos-upsert-race](posnos-upsert-race.md) — posnos: check-then-act upsert (select then insert/update) races vs. established onConflictDo* convention
+- [posnos-swr-editable-state](posnos-swr-editable-state.md) — posnos: editable input seeded from useSWR-polled prop via useState never resyncs across devices

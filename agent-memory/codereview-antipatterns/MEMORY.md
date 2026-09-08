@@ -2,3 +2,5 @@
 - [inventory-app-ocr-validation](inventory-app-ocr-validation.md) — OCR output filtering & prompt schema consistency gaps
 - [posnos-upsert-race](posnos-upsert-race.md) — posnos: check-then-act upsert (select then insert/update) races vs. established onConflictDo* convention
 - [posnos-swr-editable-state](posnos-swr-editable-state.md) — posnos: editable input seeded from useSWR-polled prop via useState never resyncs across devices
+- [harness-config-lifecycle-consistency](harness-config-lifecycle-consistency.md) — ~/.claude/CLAUDE.md's 3-section skill lifecycle (Task-Lifecycle/Subagent Checkers/Agents Together) must stay cross-consistent
+- [compound-capture-docs-writing](compound-capture-docs-writing.md) — compound-capture skill intentionally auto-writes docs/solutions/; watch for "create CLAUDE.md if missing" scope creep

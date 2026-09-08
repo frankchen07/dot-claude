@@ -113,6 +113,7 @@ Quality-discipline skills mapped to the task lifecycle. Invoke proactively via t
 - At the start of any multi-step task → explore-effective-efficiency
 - When writing or editing code → coding-scope-discipline and coding-native-code
 - Before claiming anything works, is fixed, or passes — and before any state-changing command → output-prove-it
+- After verify-e2e-complete (see Subagent Checkers) or output-prove-it confirms work is done → compound-capture — its own self-check skips trivial/mechanical changes, no need to gate it here too
 - Before ending any turn that used tools or produced a deliverable → output-do-the-work, then comms-outcome-first for the final message
 - Before ending any turn that used a Skill or Agent (right before ExitPlanMode when planning, right before output-do-the-work otherwise) → audit-session-summary, printing a brief list of Skills/Agents used, why, and outcome — unless the user has asked to suppress it this session
 
@@ -122,7 +123,7 @@ These are judgment skills; they compose with superpowers process skills (verific
 
 External reviewers — use after task-lifecycle skills, not instead of them.
 
-After implementing a feature or fix:
+After implementing a feature or fix — run both together in one message, they're independent (different concerns, no sequencing needed):
 - codereview-antipatterns — static review: LLM anti-patterns, recycled failed approaches, functionality deleted instead of fixed
 - codereview-overengineering — check for over-engineering or unnecessary complexity
 
@@ -146,6 +147,7 @@ When stuck on a bug after 1-2 attempts:
 Example standard sequence for airtight implementation:
 1. explore-effective-efficiency — start of multi-step task
 2. coding-scope-discipline + coding-native-code — while writing code
-3. codereview-antipatterns + codereview-overengineering — after code is written
+3. codereview-antipatterns + codereview-overengineering (run together — independent) — after code is written
 4. output-prove-it → verify-e2e-complete — before claiming done
-5. output-do-the-work + comms-outcome-first — closing the turn
+5. compound-capture — self-check inside the skill skips trivial changes
+6. output-do-the-work + comms-outcome-first — closing the turn

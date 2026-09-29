@@ -4,3 +4,9 @@
 - [posnos-swr-editable-state](posnos-swr-editable-state.md) — posnos: editable input seeded from useSWR-polled prop via useState never resyncs across devices
 - [harness-config-lifecycle-consistency](harness-config-lifecycle-consistency.md) — ~/.claude/CLAUDE.md's 3-section skill lifecycle (Task-Lifecycle/Subagent Checkers/Agents Together) must stay cross-consistent
 - [compound-capture-docs-writing](compound-capture-docs-writing.md) — compound-capture skill intentionally auto-writes docs/solutions/; watch for "create CLAUDE.md if missing" scope creep
+- [demand-predictor-recommendation-wiring](demand-predictor-recommendation-wiring.md) — redirect/date-string quirks; 3x-duplicated reasoning object is drift-prone; criticalRatio leaks margin if ever rendered outside the owner gate
+- [inventory-app-mcp-auth](inventory-app-mcp-auth.md) — MCP route hand-rolls bearer check instead of mcp-handler's withMcpAuth; proxy.ts matcher uses unanchored prefix exclusions
+- [inventory-app-standing-order-cadence](inventory-app-standing-order-cadence.md) — isDueThisWeek fail-open intentional; upcomingDemand isolation invariant; hardcoded-category-silently-drops-rows and unenforced item-string-identity-across-quantityUnit are recurring brittle spots
+- [inventory-app-production-scope-mismatch](inventory-app-production-scope-mismatch.md) — "pure rename" claims in production.ts undersold real logic changes bundled in; working tree was actively edited mid-review
+- [inventory-app-production-pluralize](inventory-app-production-pluralize.md) — pluralize() unit-word helper: regex mirrors normalizeUnit(), verified correct; y/f irregular gap; item="" edge case cleared (never crashes)
+- [inventory-app-production-page-stale-comments](inventory-app-production-page-stale-comments.md) — production/page.tsx comments quote literal old heading text; drifts stale on copy-only renames, grep for it next time

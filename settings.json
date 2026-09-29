@@ -1,13 +1,14 @@
 {
   "env": {
-    "MAX_THINKING_TOKENS": "10000",
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
     "CLAUDE_CODE_SUBAGENT_MODEL": "haiku"
   },
   "permissions": {
     "defaultMode": "bypassPermissions"
   },
-  "model": "sonnet",
+  "model": "claude-opus-5",
+  "fallbackModel": ["sonnet"],
+  "showThinkingSummaries": true,
   "hooks": {
     "PreToolUse": [
       {

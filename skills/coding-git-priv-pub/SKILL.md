@@ -101,10 +101,20 @@ miss because it doesn't look sensitive at a glance.
 9. **Install the prevention hook going forward** — `pre-push-secret-scan.sh`
    in this skill's directory. Copy it to `.git/hooks/pre-push` in the target
    repo (`chmod +x`) so future pushes — from Claude Code, a terminal, or an
-   IDE — get scanned automatically, not just this one cleanup pass. Expect
-   occasional false positives on legitimate env-var-based connection strings
-   (`postgres://$USER:$PASSWORD@host`) — verify by reading the actual match
-   before reaching for `--no-verify`, don't reach for it reflexively.
+   IDE — get scanned automatically, not just this one cleanup pass.
+
+   Its patterns are tiered. Unambiguous shapes (`AKIA…`, private key headers,
+   `sk_live_…`, `xox[baprs]-…`, raw JWTs) always block. Heuristics — bearer
+   headers, `scheme://<user>:<pass>@host` URLs, and generic `token = …`
+   assignments — are cleared when the line carries an env-var reference
+   (`postgres://$USER:$PASSWORD@host`), an obvious placeholder, or an
+   assignment value that reads as code (`token = header.slice(7)`).
+
+   When it still fires on something legitimate, read the actual match, then
+   add `pragma: allowlist secret` in a comment **on that line**. Prefer that
+   to `--no-verify`: the pragma is narrow, reviewable, and stays visible in
+   the diff, whereas `--no-verify` waves through every other commit in the
+   push. Don't reach for either reflexively.
 
 ## What tends to sneak in (recurring checklist — re-run periodically, not just once)
 
@@ -176,4 +186,6 @@ miss because it doesn't look sensitive at a glance.
   purging.
 - `pre-push-secret-scan.sh` (this skill's directory) — install as
   `.git/hooks/pre-push` in the target repo for standing protection against
-  the next accidental secret commit.
+  the next accidental secret commit. Tiered patterns; per-line opt-out via a
+  `pragma: allowlist secret` comment, which is the preferred escape hatch
+  over `--no-verify`.

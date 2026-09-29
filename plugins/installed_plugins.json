@@ -4,20 +4,20 @@
     "vercel@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/vercel/0.48.0",
-        "version": "0.48.0",
+        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/vercel/0.50.0",
+        "version": "0.50.0",
         "installedAt": "2026-05-05T00:11:43.230Z",
-        "lastUpdated": "2026-09-05T04:28:39.006Z",
+        "lastUpdated": "2026-09-23T18:32:03.338Z",
         "gitCommitSha": "b4803caa71cf3277f1178f35f7189f9b8d20f6bb"
       }
     ],
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/skill-creator/85cce0381e78",
-        "version": "85cce0381e78",
+        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/skill-creator/fbe07fb6ce7d",
+        "version": "fbe07fb6ce7d",
         "installedAt": "2026-08-24T21:10:47.945Z",
-        "lastUpdated": "2026-09-05T04:28:37.420Z",
+        "lastUpdated": "2026-09-28T21:14:26.651Z",
         "gitCommitSha": "6e932d1e08f7adfcd3335ac8695ebdccbb74c8de"
       }
     ]

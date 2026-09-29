@@ -47,3 +47,16 @@ audit-nudge/state/
 daemon/
 jobs/
 plans/
+
+# Daemon runtime state living at the repo root (PIDs, local paths, timestamps).
+# The daemon/ rule above only covers the directory, not these sibling files.
+daemon.log
+daemon.lock
+daemon.status.json
+daemon-auth-status.json
+daemon-auth-cooldown
+.last-cleanup
+
+# Queued SendFeedback drafts — contain local paths, private project names,
+# and request IDs.
+feedback/drafts/

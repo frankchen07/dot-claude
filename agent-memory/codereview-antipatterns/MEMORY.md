@@ -10,3 +10,5 @@
 - [inventory-app-production-scope-mismatch](inventory-app-production-scope-mismatch.md) — "pure rename" claims in production.ts undersold real logic changes bundled in; working tree was actively edited mid-review
 - [inventory-app-production-pluralize](inventory-app-production-pluralize.md) — pluralize() unit-word helper: regex mirrors normalizeUnit(), verified correct; y/f irregular gap; item="" edge case cleared (never crashes)
 - [inventory-app-production-page-stale-comments](inventory-app-production-page-stale-comments.md) — production/page.tsx comments quote literal old heading text; drifts stale on copy-only renames, grep for it next time
+- [posnos-silent-fetch-failures](posnos-silent-fetch-failures.md) — posnos writes skip res.ok/catch by default; error-handling fixes land on the debugged function only, siblings left silent
+- [native-dialog-to-react-modal](native-dialog-to-react-modal.md) — checklist of guarantees lost when window.confirm/alert is replaced by a React modal (precondition freeze, idempotency, visibility)

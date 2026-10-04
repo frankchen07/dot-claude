@@ -1,0 +1,16 @@
+{
+  "etag": "W/\"487PQPRKfi2dkkrlBJJD_86sW9k67ywAxzDvFZD3_vM\"",
+  "rows": [
+    {
+      "name": "anthropic-plugin-directory",
+      "display_name": "Anthropic Directory",
+      "scope": "default",
+      "source": {
+        "source": "claudeai"
+      },
+      "id": "marketplace_01VNB7JgJyYTuJiDfXSABKm3",
+      "updated_at": "2026-10-01T23:00:43.898057Z"
+    }
+  ],
+  "parserVersion": 2
+}

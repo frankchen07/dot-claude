@@ -1,6 +1,6 @@
 ---
 name: inventory-app-mcp-auth
-description: inventory-tracker MCP route auth pattern — manual bearer check instead of mcp-handler's withMcpAuth; proxy.ts matcher uses unanchored prefix exclusions
+description: inventory-tracker auth — HMAC session cookie keyed on AUTH_SECRET (not passphrase), safeEqual compares; MCP still skips withMcpAuth; proxy.ts matcher unanchored prefixes
 metadata:
   type: project
 ---
@@ -30,3 +30,11 @@ again if new `api/*` routes get added near either prefix.
 
 Related: [posnos-upsert-race] for another instance of this codebase reaching for
 a manual/hand-rolled approach where a library primitive already exists.
+
+**Update 2026-10-04 (uncommitted at review time):** cookie became `${expiresMs}.${hmac}`
+signed with `AUTH_SECRET`; passphrase + MCP token now compared via sha256+timingSafeEqual
+`safeEqual` in `src/lib/auth.ts` (verified correct). Watch-items: (1) HMAC key excludes
+the passphrase, so rotating APP_PASSPHRASE no longer revokes sessions — only rotating
+AUTH_SECRET does; (2) missing AUTH_SECRET fails closed but login page shows
+"passphrase didn't match" (misleading). Proxy on Node runtime (Next 16 default), so
+node:crypto import there is intentional, not an Edge bug.

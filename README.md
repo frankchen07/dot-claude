@@ -21,7 +21,8 @@ Personal Claude Code configuration — global instructions, skills, agents, and 
 │   ├── installed_plugins.json  # Installed plugin registry
 │   └── known_marketplaces.json # Marketplace sources
 ├── read-once/                  # Token-saving read-dedup hooks
-└── audit-nudge/                # Stop hook enforcing audit-session-summary
+├── audit-nudge/                # Stop hook enforcing audit-session-summary
+└── mods/turn-card/             # End-of-turn card: skills, agents, hooks, tokens
 ```
 
 ---
@@ -113,6 +114,9 @@ Subagents invoked via the `Agent` tool — each runs with its own context window
 ### `read-once/` — token-saving read dedup
 - **`hook.sh`** (`PreToolUse` on `Read`) — tracks every file read in a session; a same-content re-read within a TTL (default 20 min) is blocked with an advisory (or hard-denied, configurable) instead of re-sent. A changed file can show just the diff instead of the full content. Config via `READ_ONCE_MODE`, `READ_ONCE_TTL`, `READ_ONCE_DIFF`, `READ_ONCE_DISABLED`.
 - **`compact.sh`** (`PostCompact`) — clears the read-once cache immediately after context compaction, since compaction drops file contents from context and the TTL alone would leave a stale window.
+
+### `mods/turn-card/` — end-of-turn card
+A Claude Code mod that draws a box above the prompt after each turn: skills, agents (model, tokens), Stop hooks, tool counts, time, cost and tokens. The model only supplies short outcome notes via `audit-session-summary` args. See `mods/turn-card/README.md`.
 
 ### `audit-nudge/` — enforces `audit-session-summary`
 - **`hook.sh`** (`Stop`) — a purely prompt-based "summarize what skills/agents you used" instruction reliably got skipped under context pressure or after compaction. This hook checks the session transcript for a Skill/Agent invocation more recent than the last `audit-session-summary` call and blocks the turn from ending until it runs — capped at two consecutive nudges to avoid a loop, and it respects the same "no audit summary" / "audit summary on" suppression phrases the skill itself recognizes.

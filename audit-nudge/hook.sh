@@ -26,6 +26,13 @@ fi
 STATE_DIR="${HOME}/.claude/audit-nudge/state"
 mkdir -p "$STATE_DIR"
 
+# One JSON line per decision, read by the turn-card mod (~/.claude/mods/turn-card).
+CWD=$(echo "$INPUT" | jq -r '.cwd // empty')
+log_run() {
+  jq -cn --arg cwd "$CWD" --arg result "$1" --argjson ts "$(date +%s)000" \
+    '{ts: $ts, cwd: $cwd, hook: "audit-nudge", event: "Stop", result: $result}' >> "${STATE_DIR}/hooks.jsonl" 2>/dev/null || true
+}
+
 if command -v sha256sum >/dev/null 2>&1; then
   SESSION_HASH=$(echo -n "$SESSION_ID" | sha256sum | cut -c1-16)
 else
@@ -39,6 +46,7 @@ ATTEMPTS=${ATTEMPTS:-0}
 # Loop guard: never block more than twice in a row for the same lull.
 if [ "$ATTEMPTS" -ge 2 ]; then
   echo 0 > "$ATTEMPT_FILE"
+  log_run gave-up
   exit 0
 fi
 
@@ -80,9 +88,11 @@ LAST_EVENT=$(jq -c 'select(.message.content != null) | .message.content[]? | sel
 if [ "$LAST_EVENT" = "OTHER" ]; then
   ATTEMPTS=$((ATTEMPTS + 1))
   echo "$ATTEMPTS" > "$ATTEMPT_FILE"
-  jq -cn '{"decision":"block","reason":"You used a Skill or Agent this turn without running audit-session-summary yet. Invoke the audit-session-summary skill now, then you can stop."}'
+  log_run block
+  jq -cn '{"decision":"block","reason":"You used a Skill or Agent this turn without running audit-session-summary yet. Invoke the audit-session-summary skill now, with args `name: outcome; …` for each skill and agent used, then you can stop."}'
   exit 0
 fi
 
 echo 0 > "$ATTEMPT_FILE"
+log_run pass
 exit 0

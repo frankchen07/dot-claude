@@ -115,7 +115,7 @@ Quality-discipline skills mapped to the task lifecycle. Invoke proactively via t
 - Before claiming anything works, is fixed, or passes — and before any state-changing command → output-prove-it
 - After verify-e2e-complete (see Subagent Checkers) or output-prove-it confirms work is done → compound-capture — its own self-check skips trivial/mechanical changes, no need to gate it here too
 - Before ending any turn that used tools or produced a deliverable → output-do-the-work, then comms-outcome-first for the final message
-- Before ending any turn that used a Skill or Agent (right before ExitPlanMode when planning, right before output-do-the-work otherwise) → audit-session-summary, printing a brief list of Skills/Agents used, why, and outcome — unless the user has asked to suppress it this session
+- Before ending any turn that used a Skill or Agent (right before ExitPlanMode when planning, right before output-do-the-work otherwise) → audit-session-summary, invoked with `name: outcome; …` args (the turn-card mod draws the card) — unless the user has asked to suppress it this session
 
 These are judgment skills; they compose with superpowers process skills (verification-before-completion, systematic-debugging) rather than replacing them. Purely conversational replies don't need them.
 

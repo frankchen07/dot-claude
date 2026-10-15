@@ -1,0 +1,8 @@
+{
+  "name": "frank-mods",
+  "owner": { "name": "frank" },
+  "metadata": { "description": "frank's Claude Code mods." },
+  "plugins": [
+    { "name": "turn-card", "source": "./turn-card", "description": "End-of-turn summary of skills, agents, hooks, tools, time, cost and tokens." }
+  ]
+}

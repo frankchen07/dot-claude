@@ -1,6 +1,6 @@
 ---
 name: turn-card-mod
-description: ~/.claude/mods/turn-card: audit nudge via classic.Stop in the mod, /turns history in $.store (4 MiB cap), prune -> delete -> set with evict-and-retry
+description: ~/.claude/mods/turncard: audit nudge via classic.Stop in the mod, /turns history in $.store (4 MiB cap), prune -> delete -> set with evict-and-retry
 metadata:
   type: project
 ---

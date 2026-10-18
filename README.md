@@ -21,7 +21,7 @@ Personal Claude Code configuration — global instructions, skills, agents, and 
 │   ├── installed_plugins.json  # Installed plugin registry
 │   └── known_marketplaces.json # Marketplace sources
 ├── read-once/                  # Token-saving read-dedup hooks
-└── mods/turn-card/             # End-of-turn card + audit-session-summary nudge
+└── mods/turncard/             # End-of-turn card + audit-session-summary nudge
 ```
 
 ---
@@ -113,8 +113,8 @@ Subagents invoked via the `Agent` tool — each runs with its own context window
 - **`hook.sh`** (`PreToolUse` on `Read`) — tracks every file read in a session; a same-content re-read within a TTL (default 20 min) is blocked with an advisory (or hard-denied, configurable) instead of re-sent. A changed file can show just the diff instead of the full content. Config via `READ_ONCE_MODE`, `READ_ONCE_TTL`, `READ_ONCE_DIFF`, `READ_ONCE_DISABLED`.
 - **`compact.sh`** (`PostCompact`) — clears the read-once cache immediately after context compaction, since compaction drops file contents from context and the TTL alone would leave a stale window.
 
-### `mods/turn-card/` — end-of-turn card
-A Claude Code mod that draws a box above the prompt after each turn: skills, agents (model, tokens), tool counts, time, cost, tokens and context. The model only supplies short outcome notes via `audit-session-summary` args, and the mod's own `classic.Stop` hook blocks a turn from ending until it has (at most twice per turn; "no audit summary" / "audit summary on" turn it off and on). `/turns` lists the conversation's turns. See `mods/turn-card/README.md`.
+### `mods/turncard/` — end-of-turn card
+A Claude Code mod that draws a box above the prompt after each turn: skills, agents (model, tokens), tool counts, time, cost, tokens and context. The model only supplies short outcome notes via `audit-session-summary` args, and the mod's own `classic.Stop` hook blocks a turn from ending until it has (at most twice per turn; "no audit summary" / "audit summary on" turn it off and on). `/turns` lists the conversation's turns. See `mods/turncard/README.md`.
 
 ### `coding-git-priv-pub/pre-push-secret-scan.sh` — real git hook, not a Claude Code hook
 Not wired through `settings.json` — this is a standard `git` `pre-push` hook, installed per-repo (`cp` into `.git/hooks/pre-push`, `chmod +x`) so it fires on any push regardless of whether it goes through Claude Code, a terminal, or an IDE. Scans outgoing commits for secret-shaped strings and blocks the push with the specific match if found. Patterns are tiered rather than flat, because a flat list cries wolf on documentation and trains you to reach for `--no-verify` reflexively: unambiguous shapes (`AKIA…`, private key headers, `sk_live_…`, `xox[baprs]-…`, raw JWTs) always block, while heuristics (bearer headers, `scheme://<user>:<pass>@host` URLs, generic `token = …` assignments) are cleared by an env-var reference (`postgres://$USER:$PASSWORD@host`), an obvious placeholder, an assignment whose value is code (`token = header.slice(7)`), or an explicit `pragma: allowlist secret` comment on the line. Prefer that pragma over `--no-verify` — it's narrow, reviewable, and stays visible in the diff.

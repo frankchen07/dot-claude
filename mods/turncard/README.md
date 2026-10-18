@@ -29,7 +29,7 @@ claude plugin marketplace add ~/.claude/mods
 claude plugin install turn-card@frank-mods --scope user
 ```
 
-For one session only: `claude --plugin-dir ~/.claude/mods/turn-card`. Type `/turncard` to hide or show the card, and `/turns` to list every turn in this conversation, newest first. The history survives exiting and `claude --resume`.
+For one session only: `claude --plugin-dir ~/.claude/mods/turncard`. Type `/turncard` to hide or show the card, and `/turns` to list every turn in this conversation, newest first. The history survives exiting and `claude --resume`.
 
 ## Where the numbers come from
 - **Header:**
@@ -49,4 +49,4 @@ For one session only: `claude --plugin-dir ~/.claude/mods/turn-card`. Type `/tur
 - Agent notes are matched to the agent's description or type, ignoring case and a trailing "agent". A note under any other name doesn't show.
 
 ## Tests
-`node --test ~/.claude/mods/turn-card/test/*.test.mjs` (`card.test.mjs`: the pure helpers in `hooks/card.mjs`; `persist.test.mjs`: the hooks driven by a fake `$`, for saved history and the nudge).
+`node --test ~/.claude/mods/turncard/test/*.test.mjs` (`card.test.mjs`: the pure helpers in `hooks/card.mjs`; `persist.test.mjs`: the hooks driven by a fake `$`, for saved history and the nudge).

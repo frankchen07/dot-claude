@@ -3,7 +3,7 @@
 **Date**: 2026-10-14
 
 ## The problem
-I built `mods/turn-card`, an end-of-turn card showing skills, agents, hooks, tokens and cost. The public examples (`anthropics/claude-code-playground/claude-code/mods`) show only a few events and fields, and there is no API reference.
+I built `mods/turncard`, an end-of-turn card showing skills, agents, hooks, tokens and cost. The public examples (`anthropics/claude-code-playground/claude-code/mods`) show only a few events and fields, and there is no API reference.
 
 ## The solution / decision
 - Probe first. A throwaway mod that dumps every event's keys to a file, run once with `claude -p --plugin-dir <probe> --model haiku`, answered most questions in about a minute for about $0.01.
@@ -26,6 +26,6 @@ I built `mods/turn-card`, an end-of-turn card showing skills, agents, hooks, tok
 - **Don't verify live by grepping the screen log.** The renderer redraws only the characters that changed, so a second card's "Turn 2" never appears whole. A command's `{ text }` output is saved in the session transcript as `<local-command-stdout>`. Drive the session with `expect` using fixed sleeps, then read `~/.claude/projects/<cwd-slug>/<newest>.jsonl`. macOS has no `timeout` or `tmux` by default.
 
 ## Pointers
-- `mods/turn-card/` (README has the data sources; `hooks/turn-card.mjs` has the `classic.Stop` nudge)
+- `mods/turncard/` (README has the data sources; `hooks/turn-card.mjs` has the `classic.Stop` nudge)
 - Example mods: replay-theater (tool.call recording, panes), token-weather (`$.session.usage`), blast-radius (`$.process.run`)
 - `claude plugin validate <dir>` lists hooks and `$` calls found

@@ -23,6 +23,7 @@ paste-cache/
 plugins/cache/
 plugins/data/
 plugins/store/
+plugins/plugin-directory-cache-v2.json
 
 # IDE lock files
 ide/

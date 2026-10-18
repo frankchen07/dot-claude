@@ -1,6 +1,7 @@
 ---
 name: coding-git-history
-description: Use when a large binary, secret, or file that shouldn't be tracked has been committed to git — deleting it going forward isn't enough since it stays in history and (if pushed) on the remote. Triggers: remove file from git history, accidentally committed large file, purge secret from git, repo size bloat, .gitignore didn't catch it, "erase from that commit".
+description: >-
+  Use when a large binary, secret, or file that shouldn't be tracked has been committed to git — deleting it going forward isn't enough since it stays in history and (if pushed) on the remote. Triggers: remove file from git history, accidentally committed large file, purge secret from git, repo size bloat, .gitignore didn't catch it, "erase from that commit".
 ---
 
 # Git History Cleanup

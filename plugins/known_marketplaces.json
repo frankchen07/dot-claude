@@ -5,6 +5,14 @@
       "repo": "anthropics/claude-plugins-official"
     },
     "installLocation": "/Users/fronk/.claude/plugins/marketplaces/claude-plugins-official",
-    "lastUpdated": "2026-10-05T15:51:51.846Z"
+    "lastUpdated": "2026-10-18T06:50:26.928Z"
+  },
+  "frank-mods": {
+    "source": {
+      "source": "directory",
+      "path": "/Users/fronk/.claude/mods"
+    },
+    "installLocation": "/Users/fronk/.claude/mods",
+    "lastUpdated": "2026-10-18T17:22:33.319Z"
   }
 }

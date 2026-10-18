@@ -1,6 +1,7 @@
 ---
 name: coding-ada-compliance
-description: Use when building, auditing, or shipping any customer-facing website — before marking a site "done"/"ready for prod," when a client or business has a physical location in California (esp. Santa Clara County / San Jose — high serial-litigation area), or when asked about ADA/WCAG/Unruh Act compliance, accessibility statements, contrast, skip-to-content, or screen-reader support. Triggers: ADA compliance, website accessibility, WCAG, Unruh Act, accessibility audit, ready for prod, screen reader support, contrast check.
+description: >-
+  Use when building, auditing, or shipping any customer-facing website — before marking a site "done"/"ready for prod," when a client or business has a physical location in California (esp. Santa Clara County / San Jose — high serial-litigation area), or when asked about ADA/WCAG/Unruh Act compliance, accessibility statements, contrast, skip-to-content, or screen-reader support. Triggers: ADA compliance, website accessibility, WCAG, Unruh Act, accessibility audit, ready for prod, screen reader support, contrast check.
 ---
 
 # ADA / Website Accessibility Compliance

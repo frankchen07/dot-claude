@@ -1,6 +1,7 @@
 ---
 name: audit-ocr-data
-description: Use when verifying hand-transcribed or OCR-extracted data against source photos/scans — auditing digitized records, checking manual data entry, cross-referencing scanned handwriting against a database or spreadsheet. Triggers: audit transcription, verify against source photo, ground truth check, handwriting OCR audit, backfill verification.
+description: >-
+  Use when verifying hand-transcribed or OCR-extracted data against source photos/scans — auditing digitized records, checking manual data entry, cross-referencing scanned handwriting against a database or spreadsheet. Triggers: audit transcription, verify against source photo, ground truth check, handwriting OCR audit, backfill verification.
 ---
 
 # Manual-Transcription Audit

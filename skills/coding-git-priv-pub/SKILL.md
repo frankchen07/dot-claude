@@ -1,6 +1,7 @@
 ---
 name: coding-git-priv-pub
-description: Use before making any private repo public, open-sourcing a project, or sharing dotfiles/config/skills publicly — audits for secrets, PII, and business/personal-sensitive content (including stuff already sitting in git history), decides what to delete/anonymize/exclude, and hands off to coding-git-history for the actual purge. Triggers: make this public, open source this, share my dotfiles, is this safe to publish, flip repo visibility, publish my skills/agents.
+description: >-
+  Use before making any private repo public, open-sourcing a project, or sharing dotfiles/config/skills publicly — audits for secrets, PII, and business/personal-sensitive content (including stuff already sitting in git history), decides what to delete/anonymize/exclude, and hands off to coding-git-history for the actual purge. Triggers: make this public, open source this, share my dotfiles, is this safe to publish, flip repo visibility, publish my skills/agents.
 ---
 
 # Making a Repo Safe to Publish

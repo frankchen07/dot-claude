@@ -21,8 +21,7 @@ Personal Claude Code configuration — global instructions, skills, agents, and 
 │   ├── installed_plugins.json  # Installed plugin registry
 │   └── known_marketplaces.json # Marketplace sources
 ├── read-once/                  # Token-saving read-dedup hooks
-├── audit-nudge/                # Stop hook enforcing audit-session-summary
-└── mods/turn-card/             # End-of-turn card: skills, agents, hooks, tokens
+└── mods/turn-card/             # End-of-turn card + audit-session-summary nudge
 ```
 
 ---
@@ -44,7 +43,6 @@ Runtime configuration wired at the user level.
 | `enabledPlugins` | `vercel` | Vercel plugin active |
 | `hooks.PreToolUse` | `read-once/hook.sh` on Read | Read-dedup, saves tokens on re-reads |
 | `hooks.PostCompact` | `read-once/compact.sh` | Clears read cache after context compaction |
-| `hooks.Stop` | `audit-nudge/hook.sh` | Enforces `audit-session-summary` before a turn ends |
 
 ### `.claudeignore`
 Tells Claude not to read certain file types when indexing or exploring a project — secrets, build artifacts, binaries, large data files, logs, and IDE config.
@@ -72,7 +70,7 @@ Grouped by what they govern. Each is a `SKILL.md` with a `description` frontmatt
 
 **Process**
 - **`explore-effective-efficiency`** — Context-spending discipline for multi-step tasks: batch independent reads/searches into one parallel block, read targeted sections instead of whole files, delegate broad sweeps to a search subagent but keep direct lookups direct, and stop exploring once another pass wouldn't change the next action.
-- **`audit-session-summary`** — Prints a short status readout of every Skill and Agent used in a turn — name, why it was reached for, and the outcome — right before ending a turn or entering plan-mode approval. Backed by the `audit-nudge` `Stop` hook rather than left to memory, since a purely prompt-based version reliably got skipped under context pressure or after compaction.
+- **`audit-session-summary`** — Prints a short status readout of every Skill and Agent used in a turn — name, why it was reached for, and the outcome — right before ending a turn or entering plan-mode approval. Backed by the turn-card mod's `classic.Stop` hook rather than left to memory, since a purely prompt-based version reliably got skipped under context pressure or after compaction.
 - **`compound-capture`** — After a non-trivial task is confirmed done, captures one reusable learning (root-caused bug, real tradeoff, framework gotcha, hard-won convention) into the current project's `docs/solutions/`, with a pointer added to that repo's own `CLAUDE.md`. Self-checks first and no-ops on trivial/mechanical changes — one learning per novel task, not one per task. Distinct from `agent-memory/` (global, agent-scoped) and the cross-project personal memory system (about the user, not the codebase).
 
 **Audit**
@@ -116,10 +114,7 @@ Subagents invoked via the `Agent` tool — each runs with its own context window
 - **`compact.sh`** (`PostCompact`) — clears the read-once cache immediately after context compaction, since compaction drops file contents from context and the TTL alone would leave a stale window.
 
 ### `mods/turn-card/` — end-of-turn card
-A Claude Code mod that draws a box above the prompt after each turn: skills, agents (model, tokens), Stop hooks, tool counts, time, cost and tokens. The model only supplies short outcome notes via `audit-session-summary` args. See `mods/turn-card/README.md`.
-
-### `audit-nudge/` — enforces `audit-session-summary`
-- **`hook.sh`** (`Stop`) — a purely prompt-based "summarize what skills/agents you used" instruction reliably got skipped under context pressure or after compaction. This hook checks the session transcript for a Skill/Agent invocation more recent than the last `audit-session-summary` call and blocks the turn from ending until it runs — capped at two consecutive nudges to avoid a loop, and it respects the same "no audit summary" / "audit summary on" suppression phrases the skill itself recognizes.
+A Claude Code mod that draws a box above the prompt after each turn: skills, agents (model, tokens), tool counts, time, cost, tokens and context. The model only supplies short outcome notes via `audit-session-summary` args, and the mod's own `classic.Stop` hook blocks a turn from ending until it has (at most twice per turn; "no audit summary" / "audit summary on" turn it off and on). `/turns` lists the conversation's turns. See `mods/turn-card/README.md`.
 
 ### `coding-git-priv-pub/pre-push-secret-scan.sh` — real git hook, not a Claude Code hook
 Not wired through `settings.json` — this is a standard `git` `pre-push` hook, installed per-repo (`cp` into `.git/hooks/pre-push`, `chmod +x`) so it fires on any push regardless of whether it goes through Claude Code, a terminal, or an IDE. Scans outgoing commits for secret-shaped strings and blocks the push with the specific match if found. Patterns are tiered rather than flat, because a flat list cries wolf on documentation and trains you to reach for `--no-verify` reflexively: unambiguous shapes (`AKIA…`, private key headers, `sk_live_…`, `xox[baprs]-…`, raw JWTs) always block, while heuristics (bearer headers, `scheme://<user>:<pass>@host` URLs, generic `token = …` assignments) are cleared by an env-var reference (`postgres://$USER:$PASSWORD@host`), an obvious placeholder, an assignment whose value is code (`token = header.slice(7)`), or an explicit `pragma: allowlist secret` comment on the line. Prefer that pragma over `--no-verify` — it's narrow, reviewable, and stays visible in the diff.
@@ -155,7 +150,7 @@ Runtime, ephemeral, and personal-scratch data is gitignored:
 - `plans/` — personal planning scratch (see above)
 - `session-env/`, `sessions/`, `shell-snapshots/`, `tasks/`, `todos/` — per-session runtime state
 - `backups/`, `cache/`, `telemetry/`, `statsig/` — internal Claude Code runtime
-- `read-once/session-*.jsonl`, `read-once/stats.jsonl`, `audit-nudge/state/` — this repo's own hooks' runtime caches (the scripts themselves are tracked)
+- `read-once/session-*.jsonl`, `read-once/stats.jsonl` — this repo's own hooks' runtime caches (the scripts themselves are tracked)
 - `plugins/marketplaces/` — auto-synced from remote, not manual config
 - `settings.local.json`, `history.jsonl` — machine-specific / conversation-log data
 

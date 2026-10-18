@@ -3,6 +3,12 @@
 // The skill that carries the model's notes; it is the card's input, not a row.
 export const NOTES_SKILL = "audit-session-summary";
 
+// True when a skill or agent ran after the last notes call, so its outcome has no note yet.
+export function needsNotes(calls) {
+  const last = calls.findLastIndex((c) => (c.tool === "Skill" && c.skill !== NOTES_SKILL) || c.tool === "Agent");
+  return last > calls.findLastIndex((c) => c.tool === "Skill" && c.skill === NOTES_SKILL);
+}
+
 // "name: note; name: note" → { name: note }. Pairs without a colon are dropped.
 export function parseNotes(args) {
   const notes = {};
@@ -48,34 +54,27 @@ function tokensIn(u) {
   return (u?.input_tokens ?? 0) + (u?.cache_read_input_tokens ?? 0) + (u?.cache_creation_input_tokens ?? 0);
 }
 
+// "187k in: 155k cached (83%) · 31.9k new · 591 out". New is what wasn't read from cache, cache writes included.
+function tokensText(u) {
+  const total = tokensIn(u);
+  const cached = u.cache_read_input_tokens ?? 0;
+  const pct = total ? ` (${Math.round((cached / total) * 100)}%)` : "";
+  return `${shortTokens(total)} in: ${shortTokens(cached)} cached${pct} · ${shortTokens(total - cached)} new · ${shortTokens(u.output_tokens ?? 0)} out`;
+}
+
+// "context 150k / 1M (15%)", or "context 15%" when the window's size isn't known.
+function formatContext(end) {
+  if (end.contextPercent === undefined) return "";
+  if (end.contextTokens === undefined || !end.contextWindow) return `context ${end.contextPercent}%`;
+  return `context ${shortTokens(end.contextTokens)} / ${shortTokens(end.contextWindow)} (${end.contextPercent}%)`;
+}
+
 // "claude-haiku-5-5" → "haiku".
 function modelFamily(model) {
   return String(model ?? "").replace(/^claude-/, "").split("-")[0];
 }
 
-// Lines appended by shell hooks (see README), as JSON: { ts, cwd, hook, event, result }.
-// Keeps runs since the turn started in this folder, one entry per hook.
-export function hookRuns(logText, sinceMs, cwd) {
-  const byHook = new Map();
-  for (const line of String(logText ?? "").split("\n")) {
-    let run;
-    try { run = JSON.parse(line); } catch { continue; }
-    if (!run || run.ts < sinceMs || run.cwd !== cwd) continue;
-    const name = `${run.event}: ${run.hook}`;
-    const seen = byHook.get(name) ?? { blocks: 0, last: "" };
-    if (run.result === "block") seen.blocks++;
-    seen.last = run.result;
-    byHook.set(name, seen);
-  }
-  return [...byHook].map(([name, { blocks, last }]) => {
-    const parts = blocks ? [`blocked ${blocks}×`] : [];
-    if (last === "pass") parts.push("passed");
-    if (last === "gave-up") parts.push("gave up");
-    return { name, text: parts.join(" → ") };
-  });
-}
-
-// One finished turn → [{ label, text }]: a header, then a line per skill, agent and hook, then tool counts.
+// One finished turn → [{ label, text }]: a header, then a line per skill and agent, then tool counts.
 export function cardLines(turn, end) {
   const notes = {};
   for (const c of turn.calls) {
@@ -87,11 +86,8 @@ export function cardLines(turn, end) {
     return note ? `${text} — ${note}` : text;
   };
 
-  const u = end.usage ?? {};
-  const header = [formatDuration(end.durationMs ?? 0), formatUsd(end.costUsd),
-    `${shortTokens(tokensIn(u))} in`, `${shortTokens(u.output_tokens ?? 0)} out`,
-    end.contextPercent === undefined ? "" : `context ${end.contextPercent}%`].filter(Boolean);
-  const lines = [{ label: `Turn ${end.number}`, text: header.join(" · ") }];
+  const header = [formatDuration(end.durationMs ?? 0), formatUsd(end.costUsd), formatContext(end)].filter(Boolean);
+  const lines = [{ label: `Turn ${end.number}`, text: header.join(" · ") }, { label: "Tokens", text: tokensText(end.usage ?? {}) }];
 
   const row = (label, texts) => texts.forEach((text, k) => lines.push({ label: k === 0 ? label : "", text }));
   const orNone = (texts) => (texts.length ? texts : ["none"]);
@@ -110,11 +106,24 @@ export function cardLines(turn, end) {
     return withNote([c.description, type], `${type}${c.description ? ` · ${c.description}` : ""}${meta.length ? ` (${meta.join(", ")})` : ""}`);
   })));
 
-  row("Hooks", (end.hooks ?? []).map((h) => `${h.name} ${h.text}`));
-
   const tools = new Map();
-  for (const c of turn.calls) tools.set(c.tool, (tools.get(c.tool) ?? 0) + 1);
-  const counts = [...tools].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([t, n]) => `${t} ${n}`);
+  for (const c of turn.calls) if (c.skill !== NOTES_SKILL) tools.set(c.tool, (tools.get(c.tool) ?? 0) + 1);
+  const counts = [...tools].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([t, n]) => (n > 1 ? `${t} ×${n}` : t));
   if (counts.length) lines.push({ label: "Tools", text: counts.join(" · ") });
   return lines;
+}
+
+// Finished turns ({ calls, end }) → plain text for /turns, newest first.
+export function historyText(turns, agentUsage) {
+  if (!turns.length) return "No turns yet";
+  return [...turns].reverse().map(({ calls, end }) => {
+    const [head, ...rows] = cardLines({ calls, agentUsage }, end);
+    return [`${head.label} · ${head.text}`, ...rows.map((l) => `  ${l.label.padEnd(8)}${l.text}`)].join("\n");
+  }).join("\n\n");
+}
+
+// Store keys for saved /turns histories ("turns:<sessionId>"), oldest first → the ones past `keep`.
+export function sessionKeysToPrune(keys, keep) {
+  const saved = keys.filter((k) => k.startsWith("turns:"));
+  return saved.slice(0, Math.max(0, saved.length - keep));
 }

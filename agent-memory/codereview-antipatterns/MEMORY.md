@@ -12,4 +12,8 @@
 - [inventory-app-production-page-stale-comments](inventory-app-production-page-stale-comments.md) — production/page.tsx comments quote literal old heading text; drifts stale on copy-only renames, grep for it next time
 - [posnos-silent-fetch-failures](posnos-silent-fetch-failures.md) — posnos writes skip res.ok/catch by default; error-handling fixes land on the debugged function only, siblings left silent
 - [native-dialog-to-react-modal](native-dialog-to-react-modal.md) — checklist of guarantees lost when window.confirm/alert is replaced by a React modal (precondition freeze, idempotency, visibility)
-- [inventory-app-row-alignment-and-static-date](inventory-app-row-alignment-and-static-date.md) — readRows drops blank rows vs positional date-column read/write; /scans/upload static so default date frozen at build
+- [inventory-app-row-alignment-and-static-date](inventory-app-row-alignment-and-static-date.md) — row alignment now by real rowIndex; count writes per-cell batchUpdate; never reintroduce whole-column rewrite
+- [vhealthcert-silent-pass-guards](vhealthcert-silent-pass-guards.md) — vhealthcert engine: `&& ctx.x &&` guards skip checks on missing facts; ctx coupling between rules; intentional designs not to flag
+- [appcleaner-safety-policy](appcleaner-safety-policy.md) — appclean: path layer solid; bundle-ID trust, leftovers fail-open, plain-name/deleted-app (KnownApps) matching are weak spots
+- [turn-card-mod](turn-card-mod.md) — turn-card: nudge in classic.Stop, $.store 4 MiB cap, prune/evict-and-retry saves
+- [inventory-app-threshold-validation](inventory-app-threshold-validation.md) — lenient last-word unit parse ("3 sleeves of cups"=3 cups) on read/count paths; only MCP threshold write is strict

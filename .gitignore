@@ -22,6 +22,7 @@ stats-cache.json
 paste-cache/
 plugins/cache/
 plugins/data/
+plugins/store/
 
 # IDE lock files
 ide/
@@ -39,9 +40,6 @@ read-once/stats.jsonl
 read-once/read-once
 read-once/read-once.ps1
 read-once/.last-cleanup
-
-# audit-nudge runtime artifacts (keep the script)
-audit-nudge/state/
 
 # Runtime daemon/job state, and personal planning scratch — not for public sharing
 daemon/

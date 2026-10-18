@@ -10,6 +10,11 @@
   "fallbackModel": [
     "sonnet"
   ],
+  "skillOverrides": {
+    "setup-railway": "off",
+    "audit-ocr-data": "off",
+    "comms-dealmaking": "off"
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -32,24 +37,27 @@
           }
         ]
       }
-    ],
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/audit-nudge/hook.sh"
-          }
-        ]
-      }
     ]
   },
   "enabledPlugins": {
     "vercel@claude-plugins-official": true,
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": false,
+    "turn-card@frank-mods": true
+  },
+  "extraKnownMarketplaces": {
+    "frank-mods": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/fronk/.claude/mods"
+      }
+    }
   },
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "showThinkingSummaries": true,
   "skipDangerousModePermissionPrompt": true,
   "verbose": true

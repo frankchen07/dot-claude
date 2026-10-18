@@ -70,7 +70,7 @@ Grouped by what they govern. Each is a `SKILL.md` with a `description` frontmatt
 
 **Process**
 - **`explore-effective-efficiency`** — Context-spending discipline for multi-step tasks: batch independent reads/searches into one parallel block, read targeted sections instead of whole files, delegate broad sweeps to a search subagent but keep direct lookups direct, and stop exploring once another pass wouldn't change the next action.
-- **`audit-session-summary`** — Prints a short status readout of every Skill and Agent used in a turn — name, why it was reached for, and the outcome — right before ending a turn or entering plan-mode approval. Backed by the turn-card mod's `classic.Stop` hook rather than left to memory, since a purely prompt-based version reliably got skipped under context pressure or after compaction.
+- **`audit-session-summary`** — Prints a short status readout of every Skill and Agent used in a turn — name, why it was reached for, and the outcome — right before ending a turn or entering plan-mode approval. Backed by the turncard mod's `classic.Stop` hook rather than left to memory, since a purely prompt-based version reliably got skipped under context pressure or after compaction.
 - **`compound-capture`** — After a non-trivial task is confirmed done, captures one reusable learning (root-caused bug, real tradeoff, framework gotcha, hard-won convention) into the current project's `docs/solutions/`, with a pointer added to that repo's own `CLAUDE.md`. Self-checks first and no-ops on trivial/mechanical changes — one learning per novel task, not one per task. Distinct from `agent-memory/` (global, agent-scoped) and the cross-project personal memory system (about the user, not the codebase).
 
 **Audit**

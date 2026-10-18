@@ -1,6 +1,6 @@
 {
-  "name": "turn-card",
-  "version": "0.4.1",
+  "name": "turncard",
+  "version": "0.5.0",
   "description": "Turn Card: a box above the prompt after each turn with the skills, agents, hooks, tools, time, cost and tokens it used.",
   "author": { "name": "frank" }
 }

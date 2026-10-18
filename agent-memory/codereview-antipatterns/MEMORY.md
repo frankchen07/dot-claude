@@ -15,5 +15,5 @@
 - [inventory-app-row-alignment-and-static-date](inventory-app-row-alignment-and-static-date.md) — row alignment now by real rowIndex; count writes per-cell batchUpdate; never reintroduce whole-column rewrite
 - [vhealthcert-silent-pass-guards](vhealthcert-silent-pass-guards.md) — vhealthcert engine: `&& ctx.x &&` guards skip checks on missing facts; ctx coupling between rules; intentional designs not to flag
 - [appcleaner-safety-policy](appcleaner-safety-policy.md) — appclean: path layer solid; bundle-ID trust, leftovers fail-open, plain-name/deleted-app (KnownApps) matching are weak spots
-- [turn-card-mod](turn-card-mod.md) — turn-card: nudge in classic.Stop, $.store 4 MiB cap, prune/evict-and-retry saves
+- [turncard-mod](turncard-mod.md) — turncard: nudge in classic.Stop, $.store 4 MiB cap, prune/evict-and-retry saves
 - [inventory-app-threshold-validation](inventory-app-threshold-validation.md) — lenient last-word unit parse ("3 sleeves of cups"=3 cups) on read/count paths; only MCP threshold write is strict

@@ -13,7 +13,7 @@ I built `mods/turncard`, an end-of-turn card showing skills, agents, hooks, toke
   - `turn.complete` gives `usage` (input, output and cache tokens, plus model), `durationMs`, `answer`, and `agentId` for subagent turns. A subagent's own tool calls carry `agentId`, so filter on it.
   - `turn.start` gives `{text, turnId}`. `session.start` gives `{cwd, surface, isInteractive}`.
   - `$.session.usage()` returns `{startedAt, context:{tokens,window,percent}, rateLimits, cost:{usd}}`, where cost is for the whole session.
-- Mods can't see shell hooks, but they don't need them: `on("classic.Stop", …)` runs where the settings Stop hook would, and returning `{ block: "<reason>" }` blocks the stop just like `decision: block`. The turn-card nudge started as a shell hook plus a JSON-lines file the mod read back, and moved into the mod (2026-10-17). A block still produces only one main `turn.complete`, and `turn.start` doesn't fire again, so the turn's state carries through. Under an organization's managed settings, `classic.*` hooks run only for plugins those settings list.
+- Mods can't see shell hooks, but they don't need them: `on("classic.Stop", …)` runs where the settings Stop hook would, and returning `{ block: "<reason>" }` blocks the stop just like `decision: block`. The turncard nudge started as a shell hook plus a JSON-lines file the mod read back, and moved into the mod (2026-10-17). A block still produces only one main `turn.complete`, and `turn.start` doesn't fire again, so the turn's state carries through. Under an organization's managed settings, `classic.*` hooks run only for plugins those settings list.
 - **The real API reference is generated locally.** Each time it loads a mod, Claude Code writes TypeScript types to `<mod>/.claude-plugin/types/` plus a `tsconfig.json`. Read those before probing. Gitignore both, as the examples do.
 
 ## Why it wasn't obvious
@@ -26,6 +26,6 @@ I built `mods/turncard`, an end-of-turn card showing skills, agents, hooks, toke
 - **Don't verify live by grepping the screen log.** The renderer redraws only the characters that changed, so a second card's "Turn 2" never appears whole. A command's `{ text }` output is saved in the session transcript as `<local-command-stdout>`. Drive the session with `expect` using fixed sleeps, then read `~/.claude/projects/<cwd-slug>/<newest>.jsonl`. macOS has no `timeout` or `tmux` by default.
 
 ## Pointers
-- `mods/turncard/` (README has the data sources; `hooks/turn-card.mjs` has the `classic.Stop` nudge)
+- `mods/turncard/` (README has the data sources; `hooks/turncard.mjs` has the `classic.Stop` nudge)
 - Example mods: replay-theater (tool.call recording, panes), token-weather (`$.session.usage`), blast-radius (`$.process.run`)
 - `claude plugin validate <dir>` lists hooks and `$` calls found

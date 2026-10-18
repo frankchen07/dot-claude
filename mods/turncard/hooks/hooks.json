@@ -1,1 +1,1 @@
-{ "modules": ["./turn-card.mjs"] }
+{ "modules": ["./turncard.mjs"] }

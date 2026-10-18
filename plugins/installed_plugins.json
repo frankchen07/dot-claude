@@ -21,13 +21,13 @@
         "gitCommitSha": "ea10b213686c90bb1984b2016937310e05336cf3"
       }
     ],
-    "turn-card@frank-mods": [
+    "turncard@frank-mods": [
       {
         "scope": "user",
-        "installPath": "/Users/fronk/.claude/plugins/cache/frank-mods/turn-card/0.4.1",
-        "version": "0.4.1",
-        "installedAt": "2026-10-14T23:27:31.543Z",
-        "lastUpdated": "2026-10-18T17:22:33.847Z"
+        "installPath": "/Users/fronk/.claude/plugins/cache/frank-mods/turncard/0.5.0",
+        "version": "0.5.0",
+        "installedAt": "2026-10-18T17:32:29.221Z",
+        "lastUpdated": "2026-10-18T17:32:29.221Z"
       }
     ]
   }

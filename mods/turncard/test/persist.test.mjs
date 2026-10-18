@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { register } from "../hooks/turn-card.mjs";
+import { register } from "../hooks/turncard.mjs";
 
 // The mod's hooks driven by a fake `$`: an in-memory store and a session id the test switches.
 const hooks = [];

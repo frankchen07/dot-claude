@@ -1,9 +1,9 @@
 ---
 name: audit-session-summary
-description: Use before ending any turn that used a Skill or Agent — right before ExitPlanMode when planning, right before output-do-the-work otherwise. Invoke it WITH args — one `name: outcome` pair per Skill and Agent used this turn, `;`-separated, each outcome ≤6 words (e.g. `output-prove-it: 139/139 tests green; verify-e2e-complete: passed, 1 gap fixed`). The turn-card mod draws them on its end-of-turn card. Say "no audit summary" to suppress for the rest of the session, "audit summary on" to resume.
+description: Use before ending any turn that used a Skill or Agent — right before ExitPlanMode when planning, right before output-do-the-work otherwise. Invoke it WITH args — one `name: outcome` pair per Skill and Agent used this turn, `;`-separated, each outcome ≤6 words (e.g. `output-prove-it: 139/139 tests green; verify-e2e-complete: passed, 1 gap fixed`). The turncard mod draws them on its end-of-turn card. Say "no audit summary" to suppress for the rest of the session, "audit summary on" to resume.
 ---
 
-The turn-card mod (`~/.claude/mods/turncard`) records the facts itself: which skills, agents and tools ran, time, cost and tokens. Its Stop hook is what reminds you to run this skill. Your only job is the outcome notes, passed as this skill's `args`.
+The turncard mod (`~/.claude/mods/turncard`) records the facts itself: which skills, agents and tools ran, time, cost and tokens. Its Stop hook is what reminds you to run this skill. Your only job is the outcome notes, passed as this skill's `args`.
 
 ## What to do
 

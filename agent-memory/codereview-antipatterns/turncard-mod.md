@@ -1,11 +1,11 @@
 ---
-name: turn-card-mod
+name: turncard-mod
 description: ~/.claude/mods/turncard: audit nudge via classic.Stop in the mod, /turns history in $.store (4 MiB cap), prune -> delete -> set with evict-and-retry
 metadata:
   type: project
 ---
 
-turn-card mod (0.4.0, 2026-10-18) records skills/agents/tools from tool.call and draws the card; audit-session-summary args supply the outcome notes. The old shell Stop hook (audit-nudge/hook.sh + hooks.jsonl bridge) is retired and deleted; the nudge is now `on("classic.Stop")` returning `{block}` when the current turn has a Skill/Agent after the last notes call, max 2 blocks per turn, suppressed by "no audit summary" in turn.start text (saved per session).
+turncard mod (0.4.0, 2026-10-18) records skills/agents/tools from tool.call and draws the card; audit-session-summary args supply the outcome notes. The old shell Stop hook (audit-nudge/hook.sh + hooks.jsonl bridge) is retired and deleted; the nudge is now `on("classic.Stop")` returning `{block}` when the current turn has a Skill/Agent after the last notes call, max 2 blocks per turn, suppressed by "no audit summary" in turn.start text (saved per session).
 
 Storage: `$.store` key `turns:<sessionId>` = {history, agentUsage, notesOff}. Store is ONE JSON file per plugin, `set` rejects past 4 MiB, keys() is insertion order. saveHistory prunes to 25 sessions, deletes then sets own key (moves it to end), and on a rejected set evicts the oldest other session and retries.
 

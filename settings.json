@@ -42,7 +42,7 @@
   "enabledPlugins": {
     "vercel@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": false,
-    "turn-card@frank-mods": true
+    "turncard@frank-mods": true
   },
   "extraKnownMarketplaces": {
     "frank-mods": {

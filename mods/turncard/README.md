@@ -26,7 +26,7 @@ Requires Claude Code 2.1.287 or later.
 
 ```bash
 claude plugin marketplace add ~/.claude/mods
-claude plugin install turn-card@frank-mods --scope user
+claude plugin install turncard@frank-mods --scope user
 ```
 
 For one session only: `claude --plugin-dir ~/.claude/mods/turncard`. Type `/turncard` to hide or show the card, and `/turns` to list every turn in this conversation, newest first. The history survives exiting and `claude --resume`.

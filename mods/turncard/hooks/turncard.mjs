@@ -32,6 +32,9 @@ const state = {
   // "no audit summary" said this session, saved with the history so a resume keeps it.
   notesOff: false,
 };
+// /turns output text → the turns it listed, so an old /turns row keeps drawing what it showed then.
+// In memory only: rows from before a restart draw as plain text.
+const shown = new Map();
 
 export function register(on) {
   on("session.start", async ($, e, next) => {
@@ -49,7 +52,9 @@ export function register(on) {
 
   on("command.run", { command: "turns" }, async ($) => {
     await syncSession($);
-    return { text: historyText(state.history, state.agentUsage) };
+    const text = historyText(state.history, state.agentUsage);
+    shown.set(text, { turns: [...state.history], agentUsage: structuredClone(state.agentUsage) });
+    return { text };
   });
 
   on("turn.start", async ($, e, next) => {
@@ -98,16 +103,31 @@ export function register(on) {
     const card = state.history.at(-1);
     if (!state.enabled || !card || e.hasSurvey) return next(e);
     const { Box, Text } = $.ui.resolve(e);
-    const lines = cardLines({ calls: card.calls, agentUsage: state.agentUsage }, card.end);
+    return drawCard(Box, Text, cardLines({ calls: card.calls, agentUsage: state.agentUsage }, card.end));
+  });
+
+  // Draws /turns as one card per turn, newest first, in place of its plain text.
+  on("ui.render", { component: "CommandOutput" }, ($, e, next) => {
+    const snap = e.props.command === "turns" ? shown.get(e.props.text) : undefined;
+    if (!snap) return next(e);
+    const { Box, Text } = $.ui.resolve(e);
     return Box({
-      flexDirection: "column", borderStyle: "round", borderColor: "gray", paddingX: 1,
-      children: lines.map((line, k) => Box({
-        key: `l${k}`, flexDirection: "row", children: [
-          Text({ bold: true, color: k === 0 ? "magenta" : LABEL_COLORS[line.label], children: line.label.padEnd(8) }),
-          Text({ dimColor: k === 0, wrap: "truncate-end", children: line.text }),
-        ],
-      })),
+      flexDirection: "column", gap: 1,
+      children: [...snap.turns].reverse().map(({ calls, end }) =>
+        drawCard(Box, Text, cardLines({ calls, agentUsage: snap.agentUsage }, end), `t${end.number}`)),
     });
+  });
+}
+
+function drawCard(Box, Text, lines, key) {
+  return Box({
+    key, flexDirection: "column", borderStyle: "round", borderColor: "gray", paddingX: 1,
+    children: lines.map((line, k) => Box({
+      key: `l${k}`, flexDirection: "row", children: [
+        Text({ bold: true, color: k === 0 ? "magenta" : LABEL_COLORS[line.label], children: line.label.padEnd(8) }),
+        Text({ dimColor: k === 0, wrap: "truncate-end", children: line.text }),
+      ],
+    })),
   });
 }
 

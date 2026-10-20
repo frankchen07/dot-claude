@@ -29,7 +29,7 @@ claude plugin marketplace add ~/.claude/mods
 claude plugin install turncard@frank-mods --scope user
 ```
 
-For one session only: `claude --plugin-dir ~/.claude/mods/turncard`. Type `/turncard` to hide or show the card, and `/turns` to list every turn in this conversation, newest first. The history survives exiting and `claude --resume`.
+For one session only: `claude --plugin-dir ~/.claude/mods/turncard`. Type `/turncard` to hide or show the card, and `/turns` to list every turn in this conversation as a card, newest first. The history survives exiting and `claude --resume`.
 
 ## Where the numbers come from
 - **Header:**
@@ -44,7 +44,7 @@ For one session only: `claude --plugin-dir ~/.claude/mods/turncard`. Type `/turn
   - Its tokens come from the subagent's own `turn.complete`. An async agent that finishes after the turn still fills them in.
 
 ## Notes / limitations
-- The card shows only the last turn, since the band above the prompt holds one mod at a time. `/turns` has the rest.
+- The card shows only the last turn, since the band above the prompt holds one mod at a time. `/turns` has the rest. Its cards are drawn from a snapshot kept in memory, so a `/turns` row from before a restart shows as plain text.
 - `/turns` history is saved per conversation (by `$.session.id()`) in the mod's `$.store`, so it comes back when you resume that conversation. A new session or `/clear` starts empty. Only the 25 most recently used conversations are kept, and `--fork-session` starts fresh, since it gets a new id.
 - Agent notes are matched to the agent's description or type, ignoring case and a trailing "agent". A note under any other name doesn't show.
 

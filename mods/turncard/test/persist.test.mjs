@@ -23,7 +23,10 @@ const $ = {
     delete: async (k) => { store.delete(k); },
     keys: async () => [...store.keys()],
   },
-  ui: { invalidate: () => {} },
+  ui: {
+    invalidate: () => {},
+    resolve: () => ({ Box: (p) => ({ type: "Box", ...p }), Text: (p) => ({ type: "Text", ...p }) }),
+  },
 };
 
 async function turn({ agentId } = {}) {
@@ -105,4 +108,25 @@ test("'no audit summary' turns the nudge off until 'audit summary on'", async ()
   await call("Skill", { skill: "output-prove-it" });
   assert.ok((await stop()).block);
   await fire("turn.complete", { usage: {} });
+});
+
+const render = (props) => fire("ui.render", { component: "CommandOutput", props }, async () => "plain");
+
+test("/turns draws each turn as a bordered card, newest first", async () => {
+  sessionId = "R";
+  await turn();
+  await turn();
+  const { text } = await fire("command.run", { command: "turns" });
+  const tree = await render({ command: "turns", text });
+  assert.equal(tree.gap, 1);
+  assert.equal(tree.children.length, 2);
+  for (const card of tree.children) assert.equal(card.borderStyle, "round");
+  const header = tree.children[0].children[0].children[0];
+  assert.equal(header.children.trim(), "Turn 2");
+  assert.equal(header.color, "magenta");
+});
+
+test("/turns rows it has no snapshot for, and other commands' rows, draw as plain text", async () => {
+  assert.equal(await render({ command: "turns", text: "Turn 9 · from before a restart" }), "plain");
+  assert.equal(await render({ command: "cost", text: "Total cost: $1" }), "plain");
 });

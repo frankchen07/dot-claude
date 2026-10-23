@@ -14,20 +14,20 @@
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/skill-creator/ea10b213686c",
-        "version": "ea10b213686c",
+        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/skill-creator/465f09344424",
+        "version": "465f09344424",
         "installedAt": "2026-08-24T21:10:47.945Z",
-        "lastUpdated": "2026-10-16T21:46:31.397Z",
-        "gitCommitSha": "ea10b213686c90bb1984b2016937310e05336cf3"
+        "lastUpdated": "2026-10-22T23:09:14.326Z",
+        "gitCommitSha": "465f09344424225c25d438f2e052732c3d688d2f"
       }
     ],
     "turncard@frank-mods": [
       {
         "scope": "user",
-        "installPath": "/Users/fronk/.claude/plugins/cache/frank-mods/turncard/0.5.0",
-        "version": "0.5.0",
+        "installPath": "/Users/fronk/.claude/plugins/cache/frank-mods/turncard/0.6.0",
+        "version": "0.6.0",
         "installedAt": "2026-10-18T17:32:29.221Z",
-        "lastUpdated": "2026-10-18T17:32:29.221Z"
+        "lastUpdated": "2026-10-20T02:24:47.311Z"
       }
     ]
   }

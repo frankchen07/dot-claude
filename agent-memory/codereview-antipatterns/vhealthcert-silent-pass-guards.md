@@ -23,3 +23,9 @@ Intentional (do not flag as bugs):
 
 **Why:** these were the root causes behind the first review's FAIL verdict.
 **How to apply:** on re-review, grep requirements.ts for `&& ctx.` guards and check each null branch returns cannot_determine.
+
+France/EU review (2026-10-19):
+- New brittle spot: rabies_series `primary` — the wait raises earliestArrival but is NOT added to the planned dose's `latest` bound (deadline only gets minDaysBeforeArrival). Check planned-action windows, not just status/earliestArrival, whenever a new wait/validity knob is added.
+- `primary` cap only applied inside the requireContinuity branch; type allows primary + requireContinuity:false (latent silent pass). Prefer type coupling or KB integrity assert.
+- breed_restriction has no "depends on uncollected fact" outcome: pedigree-dependent breeds (FR Cat 1: AmStaff/Mastiff/Tosa) return satisfied + reviewNote (verified_review once reviewed), not cannot_determine.
+- Intentional: APHIS 1-year primary cap applied to all doses even though APHIS scopes it to US-vaccinated (conservative). Excerpt matching is normalized lowercase substring (lib/sources/text.ts) — judge "too generic" excerpts with that in mind.

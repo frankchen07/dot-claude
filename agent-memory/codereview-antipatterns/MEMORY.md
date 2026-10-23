@@ -13,7 +13,8 @@
 - [posnos-silent-fetch-failures](posnos-silent-fetch-failures.md) — posnos writes skip res.ok/catch by default; error-handling fixes land on the debugged function only, siblings left silent
 - [native-dialog-to-react-modal](native-dialog-to-react-modal.md) — checklist of guarantees lost when window.confirm/alert is replaced by a React modal (precondition freeze, idempotency, visibility)
 - [inventory-app-row-alignment-and-static-date](inventory-app-row-alignment-and-static-date.md) — row alignment now by real rowIndex; count writes per-cell batchUpdate; never reintroduce whole-column rewrite
-- [vhealthcert-silent-pass-guards](vhealthcert-silent-pass-guards.md) — vhealthcert engine: `&& ctx.x &&` guards skip checks on missing facts; ctx coupling between rules; intentional designs not to flag
+- [vhealthcert-silent-pass-guards](vhealthcert-silent-pass-guards.md) — vhealthcert: `&& ctx.x &&` silent-pass guards; new wait knobs must reach action windows; breed rules lack cannot_determine
 - [appcleaner-safety-policy](appcleaner-safety-policy.md) — appclean: path layer solid; bundle-ID trust, leftovers fail-open, plain-name/deleted-app (KnownApps) matching are weak spots
 - [turncard-mod](turncard-mod.md) — turncard: nudge in classic.Stop, $.store 4 MiB cap, prune/evict-and-retry saves
 - [inventory-app-threshold-validation](inventory-app-threshold-validation.md) — lenient last-word unit parse ("3 sleeves of cups"=3 cups) on read/count paths; only MCP threshold write is strict
+- [ramit-agent-telegram-bot](ramit-agent-telegram-bot.md) — Telegram HTML fallback + compaction-retry intentional; unbounded retry excerpt, single-message retrieval weak

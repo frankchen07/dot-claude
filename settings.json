@@ -10,11 +10,6 @@
   "fallbackModel": [
     "sonnet"
   ],
-  "skillOverrides": {
-    "setup-railway": "off",
-    "audit-ocr-data": "off",
-    "comms-dealmaking": "off"
-  },
   "hooks": {
     "PreToolUse": [
       {

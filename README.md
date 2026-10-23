@@ -1,6 +1,6 @@
 # dot-claude
 
-Personal Claude Code configuration — global instructions, skills, agents, and hooks. Shared for reference: the skills and agents here reflect one person's workflow, house style, and recurring failure modes. Adapt what's useful rather than copying wholesale — several skills (`comms-dealmaking`, `automate-youtube-content`) are templates with the original personal specifics stripped out on purpose.
+Personal Claude Code configuration — global instructions, skills, agents, and hooks. Shared for reference: the skills and agents here reflect one person's workflow, house style, and recurring failure modes. Adapt what's useful rather than copying wholesale — some (like `automate-youtube-content`) are templates with the original personal specifics stripped out on purpose.
 
 ---
 
@@ -64,7 +64,6 @@ Grouped by what they govern. Each is a `SKILL.md` with a `description` frontmatt
 
 **Communication & output**
 - **`comms-outcome-first`** — Governs how replies are written: the first sentence answers the question actually asked, structure (headers/bullets) is earned by the content rather than applied by default, and thoroughness shows in the answer's quality rather than the report's length. Bans meta-preamble ("This is a judgment question...") and sycophantic openers.
-- **`comms-dealmaking`** — A negotiation and deal-coaching template (job offers, equity, freelance rates, rent, contracts) built around named frameworks (Sethi, Voss, Ury, Dawson, Bourkoff), failure-mode interception, and ready-made scripts for offer receipt, pushback, and closing. Ships as a fill-in-the-blank template — the profile section is meant to be customized with the actual user's real specifics.
 - **`output-do-the-work`** — A turn ends when the work is done or genuinely blocked on something only the user can provide — not because of an error, a "want me to?" impulse, or session length. Reversible, in-scope work gets done without a checkpoint; errors are the start of investigation, not a stopping point.
 - **`output-prove-it`** — Distinguishes three rungs of a claim — written, runs, verified — and requires naming which one you're actually on before saying something is "fixed" or "done." Verification has to be an action taken this session (running the test, hitting the endpoint), not re-reading the code or inferring from a changed error message.
 
@@ -73,11 +72,9 @@ Grouped by what they govern. Each is a `SKILL.md` with a `description` frontmatt
 - **`audit-session-summary`** — Prints a short status readout of every Skill and Agent used in a turn — name, why it was reached for, and the outcome — right before ending a turn or entering plan-mode approval. Backed by the turncard mod's `classic.Stop` hook rather than left to memory, since a purely prompt-based version reliably got skipped under context pressure or after compaction.
 - **`compound-capture`** — After a non-trivial task is confirmed done, captures one reusable learning (root-caused bug, real tradeoff, framework gotcha, hard-won convention) into the current project's `docs/solutions/`, with a pointer added to that repo's own `CLAUDE.md`. Self-checks first and no-ops on trivial/mechanical changes — one learning per novel task, not one per task. Distinct from `agent-memory/` (global, agent-scoped) and the cross-project personal memory system (about the user, not the codebase).
 
-**Audit**
-- **`audit-ocr-data`** — Verifies hand-transcribed or OCR-extracted data against source photos/scans before trusting it downstream. Covers cropping/zooming ambiguous regions, cross-referencing the same handwriting elsewhere on a sheet, and plausibility-checking corrections against the domain's normal value range rather than accepting the first "read." Includes an error taxonomy and guidance for batching large audits across fresh (non-forked) subagents.
-
 **Setup / integrations**
-- **`setup-railway`** — Comprehensive operating guide for Railway infrastructure: projects, services, environments, buckets, deployments, feature flags, domains, and agent/MCP tooling setup, including the account creation/sign-in flow (browser vs. device-code) and routing between the CLI, remote MCP, and GraphQL depending on the task.
+- **`setup-ocr-pipeline`** — Building a photo/scan → structured-data pipeline with a vision LLM that fails loudly instead of quietly: a schema with `confidence`/`ambiguous`/`notes` and blank-vs-unreadable kept apart, an extraction prompt that flags values missing a unit even when the digit read is confident, a ground-truth diff script as the regression test, a human confirm step, "needs review" buckets so nulls never vanish from lists, and guards on the calculations built on top. Includes a hand-audit method (crop, cross-reference the same handwriting, plausibility-gate corrections) and an error taxonomy.
+- **`use-railway`** — Comprehensive operating guide for Railway infrastructure: projects, services, environments, buckets, deployments, feature flags, domains, and agent/MCP tooling setup, including the account creation/sign-in flow (browser vs. device-code) and routing between the CLI, remote MCP, and GraphQL depending on the task.
 - **`setup-shopify-headless`** — Debugging checklist and architecture guidance for headless Shopify Storefront API integrations: the token-type-confusion / password-protected-store / stale-API-version auth-failure checklist, the B2B+subscription pattern, running multiple headless channels off one store, and why client-side cart mutations need a client-exposed Storefront token.
 - **`setup-vercel-integration`** — Flags a specific `vercel integration add <provider>` gotcha: it defaults to auto-provisioning a brand-new sandbox resource rather than connecting to a provider account the user already has, which is easy to misread as "successfully connected." Covers choosing between claiming the sandbox or connecting the real existing resource, plus cleanup if the wrong path was already taken.
 

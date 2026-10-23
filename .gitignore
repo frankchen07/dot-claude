@@ -59,3 +59,8 @@ daemon-auth-cooldown
 # Queued SendFeedback drafts — contain local paths, private project names,
 # and request IDs.
 feedback/drafts/
+
+# Secrets
+.env
+.env.*
+!.env.example

@@ -14,11 +14,11 @@
     "skill-creator@claude-plugins-official": [
       {
         "scope": "user",
-        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/skill-creator/465f09344424",
-        "version": "465f09344424",
+        "installPath": "/Users/fronk/.claude/plugins/cache/claude-plugins-official/skill-creator/58267944f921",
+        "version": "58267944f921",
         "installedAt": "2026-08-24T21:10:47.945Z",
-        "lastUpdated": "2026-10-22T23:09:14.326Z",
-        "gitCommitSha": "465f09344424225c25d438f2e052732c3d688d2f"
+        "lastUpdated": "2026-10-25T02:47:00.411Z",
+        "gitCommitSha": "58267944f92187b7d6a1c822165c96c81c864806"
       }
     ],
     "turncard@frank-mods": [

@@ -1,6 +1,6 @@
 ---
 name: appcleaner-safety-policy
-description: appclean (Swift macOS uninstaller) safety review: what's solid, what's brittle (bundle-ID trust, appBundle evidence scope, leftovers OwnershipIndex fail-open, LaunchAgents tiering)
+description: appclean (Swift macOS uninstaller) safety review: what's solid, what's brittle (bundle-ID trust, appBundle evidence scope, leftovers OwnershipIndex fail-open, LaunchAgents tiering, recent-write exemption scope)
 metadata:
   type: project
 ---
@@ -28,5 +28,11 @@ Deleted-app evidence (KnownApps + Trash, reviewed 2026-10-12): `parts[1]` in own
 - Plain-name branch (App Support/<AppName>) only checks appNames (appRoots-only) + ownerBlock on the deleted app's ID: misses Homebrew formula with the same name (e.g. Syncthing), appclean's OWN support dir (CFBundleName "appclean" -> history.jsonl/known-apps.json become review), Apple plain folders.
 - KnownApps "deleted" = remembered + absent now; upgrades Caches/Preferences/App Support to ready on absence alone (app moved to unmounted volume, cross-vendor bundle-ID rename). Doesn't store last-seen path.
 - KnownApps decode failure throws before write -> permanent warning, memory frozen.
+
+Recent-write / npm / vendor-name signals (reviewed 2026-10-24): all three only return .blocked; Ready paths exempt (appOnlyRoots or confirmed). Intentional, don't re-flag: written() walk uses same URL enumerator pattern as Scanner.allocatedSize; entry itself can't be a symlink (PathValidator lstats every component); any symlink-follow would only over-block. Weak spots:
+- recentWriteBlock exempts `deleted?.confirmed == true`, broader than "would be Ready": confirmed + low-confidence match, confirmed plain-name entries, confirmed group folders, degraded index all stay Review while in use.
+- written() is fail-open on unreadable subtrees / missing dates (unlike launchAgentBlock's "any doubt blocks").
+- Remembered-only (Finder-deleted, Trash emptied) apps are unconfirmed -> fresh leftovers Blocked for 7 days after deletion.
+- npm scope != vendor (@anthropic-ai vs com.anthropic; @google/* blocks all com.google.*); other global node roots (volta/fnm/pnpm/bun/custom prefix) not indexed, silently.
 
 **How to apply:** start future reviews of this repo at SafetyPolicy/Remover/AppInfo trust boundaries, not PathValidator. See [[native-dialog-to-react-modal]] for unrelated checklist style.

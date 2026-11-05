@@ -60,6 +60,9 @@ daemon-auth-cooldown
 # and request IDs.
 feedback/drafts/
 
+# Subagent review notes — describe weak spots in private projects.
+agent-memory/
+
 # Secrets
 .env
 .env.*

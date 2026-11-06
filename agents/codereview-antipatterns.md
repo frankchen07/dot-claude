@@ -62,7 +62,7 @@ One sentence of reasoning.
 
 **MEMORY**
 
-Record to `/Users/fronk/.claude/agent-memory/codereview-antipatterns/` using the Write tool. Save only:
+Record to `~/.claude/agent-memory/codereview-antipatterns/` using the Write tool. Save only:
 - Recurring anti-patterns this codebase tends to reach for
 - Known brittle areas needing extra scrutiny
 - Intentional design decisions that look like anti-patterns (to avoid false positives)

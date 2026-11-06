@@ -25,7 +25,7 @@ The notes are the one thing the mod can't record, so its `classic.Stop` hook hol
 Requires Claude Code 2.1.287 or later.
 
 ```bash
-claude plugin marketplace add ~/.claude/mods
+cd ~/.claude && claude plugin marketplace add "$PWD/mods" --scope local
 claude plugin install turncard@frank-mods --scope user
 ```
 

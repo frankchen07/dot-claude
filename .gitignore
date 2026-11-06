@@ -1,67 +1,34 @@
-# Runtime / ephemeral
-projects/
-backups/
-cache/
-debug/
-file-history/
-session-env/
-sessions/
-shell-snapshots/
-tasks/
-todos/
-telemetry/
-statsig/
+# Allowlist: only what travels between machines is tracked. Everything else in
+# ~/.claude is machine-local, and anything new at the top level stays out.
+/*
+!/.claudeignore
+!/.gitignore
+!/CLAUDE.md
+!/README.md
+!/settings.json
+!/setup.sh
+!/agents/
+!/docs/
+!/mods/
+!/read-once/
+!/skills/
 
-# Logs & history
-history.jsonl
-*.jsonl
-
-# Caches
-mcp-needs-auth-cache.json
-stats-cache.json
-paste-cache/
-plugins/cache/
-plugins/data/
-plugins/store/
-plugins/plugin-directory-cache-v2.json
-
-# IDE lock files
-ide/
-
-# Plugin marketplace cache (auto-synced by Claude)
-plugins/marketplaces/
-
-# Local settings (permissions, not secrets, but machine-specific)
-.claude/settings.local.json
-settings.local.json
+# Re-downloaded from the claude.ai account
+skills/synced/
 
 # read-once runtime artifacts (keep the scripts)
-read-once/session-*.jsonl
-read-once/stats.jsonl
-read-once/read-once
-read-once/read-once.ps1
-read-once/.last-cleanup
+read-once/*
+!read-once/hook.sh
+!read-once/compact.sh
 
-# Runtime daemon/job state, and personal planning scratch — not for public sharing
-daemon/
-jobs/
-plans/
+# Generated inside allowlisted directories
+__pycache__/
+mods/*/tsconfig.json
+mods/*/.claude-plugin/types/
 
-# Daemon runtime state living at the repo root (PIDs, local paths, timestamps).
-# The daemon/ rule above only covers the directory, not these sibling files.
-daemon.log
-daemon.lock
-daemon.status.json
-daemon-auth-status.json
-daemon-auth-cooldown
-.last-cleanup
-
-# Queued SendFeedback drafts — contain local paths, private project names,
-# and request IDs.
-feedback/drafts/
-
-# Subagent review notes — describe weak spots in private projects.
-agent-memory/
+# Logs & local settings
+*.jsonl
+settings.local.json
 
 # Secrets
 .env

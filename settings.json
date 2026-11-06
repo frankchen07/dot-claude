@@ -39,14 +39,6 @@
     "skill-creator@claude-plugins-official": false,
     "turncard@frank-mods": true
   },
-  "extraKnownMarketplaces": {
-    "frank-mods": {
-      "source": {
-        "source": "directory",
-        "path": "/Users/fronk/.claude/mods"
-      }
-    }
-  },
   "effortLevel": "high",
   "modelSettings": {
     "claude-opus-5-5": {

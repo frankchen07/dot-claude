@@ -11,18 +11,35 @@ Personal Claude Code configuration — global instructions, skills, agents, and 
 ├── CLAUDE.md                   # Global system prompt
 ├── settings.json               # Model, env vars, hooks wiring
 ├── .claudeignore                # Files Claude won't read
-├── .gitignore                   # What stays out of this repo
+├── .gitignore                   # Allowlist of what's in this repo
+├── setup.sh                     # Per-machine setup git can't carry
 ├── skills/                      # 14 skills — see below
 ├── agents/                      # 9 agents — see below
-├── agent-memory/                 # Persistent per-agent memory files
+├── docs/solutions/              # Reusable learnings
+├── agent-memory/                 # Persistent per-agent memory files (gitignored)
 ├── plans/                       # Plan-mode artifacts (gitignored — personal scratch)
-├── plugins/
-│   ├── blocklist.json          # Blocked plugins
-│   ├── installed_plugins.json  # Installed plugin registry
-│   └── known_marketplaces.json # Marketplace sources
 ├── read-once/                  # Token-saving read-dedup hooks
 └── mods/turncard/             # End-of-turn card + audit-session-summary nudge
 ```
+
+---
+
+## Setup on another machine
+
+The repo has to live at `~/.claude`, since hooks and skills reference that path. You need a GitHub SSH key, and `jq` for the read-once hooks.
+
+If `~/.claude` doesn't exist yet, `git clone git@github.com:frankchen07/dot-claude.git ~/.claude`. If it does, because Claude Code has already run there or it's an older clone:
+
+```bash
+cd ~/.claude
+git init -b main && git remote add origin git@github.com:frankchen07/dot-claude.git   # skip if already a clone
+git fetch origin && git reset origin/main && git branch -u origin/main
+git restore .   # overwrites local edits to tracked files
+```
+
+On an older clone, use this instead of `git pull` the first time. A pull stops on generated files Claude Code has changed, or deletes them from disk, including `.mcp.json`.
+
+Then run `~/.claude/setup.sh`. It installs the pre-push secret scan, registers the marketplaces, and installs the turncard and Vercel plugins. If Claude Code rewrites `model` in `settings.json` on that first run, `git restore settings.json` undoes it and it stays undone. Memory, plans, and MCP servers stay per-machine.
 
 ---
 
@@ -48,7 +65,7 @@ Runtime configuration wired at the user level.
 Tells Claude not to read certain file types when indexing or exploring a project — secrets, build artifacts, binaries, large data files, logs, and IDE config.
 
 ### `.gitignore`
-Keeps runtime/ephemeral and personal-scratch content out of this repo — see [What's Not Here](#whats-not-here) below.
+An allowlist: ignores everything at the top level, then opts in what travels between machines, so new runtime files stay out by default — see [What's Not Here](#whats-not-here) below.
 
 ---
 
@@ -126,21 +143,11 @@ Persistent, per-agent memory that survives across sessions — currently used by
 
 Plan-mode artifacts — auto-named files from past planning sessions. **Gitignored, not published.** Auto-generated filenames turned out to be a poor proxy for content sensitivity: this directory accumulates real working context over time (business specifics, personal infrastructure detail) regardless of how generic it looks at a glance, so it's treated as private scratch by default rather than audited file-by-file.
 
-## `plugins/`
-
-| File | Purpose |
-|------|---------|
-| `installed_plugins.json` | Registry of installed plugins with version and install path |
-| `blocklist.json` | Plugins explicitly blocked from running |
-| `known_marketplaces.json` | Registered marketplace sources Claude Code checks for plugins |
-
-Currently installed: **Vercel** plugin, for deployment, preview, and edge-config tooling.
-
 ---
 
 ## What's Not Here
 
-Runtime, ephemeral, and personal-scratch data is gitignored:
+Only `CLAUDE.md`, `README.md`, `settings.json`, `setup.sh`, `.claudeignore`, `.gitignore`, `agents/`, `docs/`, `mods/`, `read-once/`, and `skills/` are tracked. Everything else is gitignored, including:
 
 - `projects/` — session transcripts (`.jsonl`) and auto-memory — full raw conversation history, the highest-density sensitive-content category in this repo
 - `daemon/`, `jobs/` — Claude Code's local background-daemon and job-queue runtime state (PIDs, session IDs, control tokens)
@@ -148,7 +155,9 @@ Runtime, ephemeral, and personal-scratch data is gitignored:
 - `session-env/`, `sessions/`, `shell-snapshots/`, `tasks/`, `todos/` — per-session runtime state
 - `backups/`, `cache/`, `telemetry/`, `statsig/` — internal Claude Code runtime
 - `read-once/session-*.jsonl`, `read-once/stats.jsonl` — this repo's own hooks' runtime caches (the scripts themselves are tracked)
-- `plugins/marketplaces/` — auto-synced from remote, not manual config
+- `plugins/` — written by Claude Code, with machine-specific paths; `setup.sh` rebuilds what's needed
+- `skills/synced/` — re-downloaded from the claude.ai account
+- `.mcp.json` — MCP servers point at machine-specific paths
 - `settings.local.json`, `history.jsonl` — machine-specific / conversation-log data
 
 If you're forking this: run `coding-git-priv-pub` before making your own version public — several rounds of exactly this audit were needed to catch content that didn't look sensitive by filename alone.
